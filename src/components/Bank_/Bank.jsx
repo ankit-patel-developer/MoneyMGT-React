@@ -2,14 +2,14 @@ import React from "react";
 
 import { useState, useEffect } from "react";
 import "./style.css";
-import BankService from "../../services/bank.service";
+import BankService from "../../services/bankService.js";
 import { getBankColor } from "../../services/local.service";
 import { useNavigate } from "react-router-dom";
 
-// react-bootstrap-table-2
+// React Bootstrap Table/Pagination
+// import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 import Button from "react-bootstrap/Button";
 
@@ -31,21 +31,25 @@ const Bank = () => {
         console.log(e);
       });
   };
-
   const getBankStyle = (row, rowIdx) => {
     var bankColor = getBankColor(row.bankName);
-    return { backgroundColor: bankColor };
+    console.log(bankColor);
+    // return { backgroundColor: bankColor };
+    return { backgroundColor: "green" };
   };
+
   const displayBankId = (cell, row) => {
     return (
       <div>
         <span>
-          <i className="bi bi-bank"></i> {cell}
+          <i className="bi bi-bank"></i>
+          {cell}
         </span>
       </div>
     );
   };
   const displayActionBtn = (cell, row) => {
+    // console.log(row);
     return (
       <div>
         {" "}
@@ -92,37 +96,42 @@ const Bank = () => {
       formatter: (cell, row) => displayActionBtn(cell, row),
     },
   ];
+
+  const createNewBank = () => {
+    navigate("/bank-create");
+  };
+  const editBank = (e, bankId) => {
+    console.log("edit bank : ", bankId);
+    navigate("/bank-edit/" + bankId);
+  };
+  const removeBank = (e, bankId) => {
+    console.log("remove bank : ", bankId);
+    navigate("/bank-remove/" + bankId);
+  };
+  const getAccounts = (e, bankId) => {
+    console.log("getting accounts for bank : ", bankId);
+    navigate("/bank-account-list/" + bankId);
+  };
+
   return (
     <div className="container">
       <div className="mainHeader">Banks</div>
       <hr />
-      <div className="row">
-        <div className="col-md-2 mx-auto"></div>
-        <div className="col-md-8 mx-auto">
-          <Button
-            className="btn btn-primary"
-            type="button"
-            onClick={(e) => createNewBank(e)}
-          >
-            <i className="bi bi-plus-circle"></i> Bank
-          </Button>
-          <p></p>
-          {banks && banks.length > 0 ? (
-            <BootstrapTable
-              bootstrap4
-              keyField="bankId"
-              data={banks}
-              rowStyle={getBankStyle}
-              columns={columns}
-              pagination={paginationFactory({ sizePerPage: 5 })}
-              filter={filterFactory()}
-            />
-          ) : (
-            <div className="noBanks">No Banks!</div>
-          )}
-        </div>
-        <div className="col-md-2 mx-auto"></div>
-      </div>
+      <h3>Banks!</h3>
+      <p></p>
+      {banks && banks.length > 0 ? (
+        <BootstrapTable
+          bootstrap4
+          keyField="bankId"
+          data={banks}
+          // rowStyle={getBankStyle}
+          rowStyle={{ backgroundColor: "red" }}
+          columns={columns}
+          pagination={paginationFactory({ sizePerPage: 5 })}
+        />
+      ) : (
+        <div className="noBanks">No Banks!</div>
+      )}
     </div>
   );
 };
