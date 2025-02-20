@@ -140,17 +140,19 @@ const Bank_Create = () => {
     }, this);
 
   return (
-    <div className="mainContainer">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6 mx-auto">
-            <div className="card">
-              <div className="card-header header">
-                <div className="row">
-                  <div className="col-md-8 mx-auto">
-                    <h3>Create New Bank</h3>
-                  </div>
-                  <div className="col-md-4 mx-auto">
+    <div className="container">
+      <div className="mainHeader">Banks</div>
+      <hr />
+      <div className="row">
+        <div className="col-md-6 mx-auto">
+          <div className="card">
+            <div className="card-header header">
+              <div className="row">
+                <div className="col-md-8 mx-auto">
+                  <h3>Create New Bank</h3>
+                </div>
+                <div className="col-md-4 ml-auto">
+                  <div className="d-flex justify-content-end">
                     <Button
                       className="btn btn-primary"
                       type="button"
@@ -160,65 +162,64 @@ const Bank_Create = () => {
                     </Button>
                   </div>
                 </div>
-                <p></p>{" "}
-                {bankCreateResponse &&
-                bankCreateResponse.responseCode === -1 ? (
-                  <span className="bankCreateError">
-                    {bankCreateResponse.responseMessage}
-                  </span>
-                ) : (
-                  <span className="bankCreateSuccess">
-                    {bankCreateResponse.responseMessage}
-                  </span>
-                )}
-                {modelErrors.length > 0 ? (
-                  <div className="modelError">{modelErrorList}</div>
-                ) : (
-                  <span></span>
-                )}
               </div>
-              <div className="card-body">
-                <Form ref={formRef}>
-                  <div className="row">
-                    <div className="col-md-6 mx-auto">
-                      <Form.Group controlId="bankName">
-                        <Form.Label>Bank Name</Form.Label>
-                        <Form.Control
-                          type="text"
-                          isInvalid={!!errors.bankName}
-                          onChange={(e) => setField("bankName", e.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.bankName}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </div>
+              <p></p>{" "}
+              {bankCreateResponse && bankCreateResponse.responseCode === -1 ? (
+                <span className="bankCreateError">
+                  {bankCreateResponse.responseMessage}
+                </span>
+              ) : (
+                <span className="bankCreateSuccess">
+                  {bankCreateResponse.responseMessage}
+                </span>
+              )}
+              {modelErrors.length > 0 ? (
+                <div className="modelError">{modelErrorList}</div>
+              ) : (
+                <span></span>
+              )}
+            </div>
+            <div className="card-body">
+              <Form ref={formRef}>
+                <div className="row">
+                  <div className="col-md-6 mx-auto">
+                    <Form.Group controlId="bankName">
+                      <Form.Label>Bank Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        isInvalid={!!errors.bankName}
+                        onChange={(e) => setField("bankName", e.target.value)}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.bankName}
+                      </Form.Control.Feedback>
+                    </Form.Group>
                   </div>
+                </div>
 
-                  <p></p>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
+                <p></p>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Button
+                    className="btn btn-success"
+                    type="button"
+                    onClick={(e) => handleSubmit(e)}
                   >
-                    <Button
-                      className="btn btn-success"
-                      type="button"
-                      onClick={(e) => handleSubmit(e)}
-                    >
-                      Create Bank
-                    </Button>
-                    <Button
-                      className="btn btn-primary"
-                      type="button"
-                      onClick={(e) => resetForm(e)}
-                    >
-                      Reset
-                    </Button>
-                  </div>
-                </Form>
-              </div>
+                    Create Bank
+                  </Button>
+                  <Button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={(e) => resetForm(e)}
+                  >
+                    Reset
+                  </Button>
+                </div>
+              </Form>
             </div>
           </div>
         </div>
