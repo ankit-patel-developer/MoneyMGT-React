@@ -11,3 +11,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.CIBC {
+  color: red;
+}
+
+.TD {
+  color: green;
+}
+
+.RBC {
+  color: blue;
+}
+
+.Scotia {
+  color: brown;
+}
+
+.noBanks {
+  text-align: center;
+  color: red;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.mainHeader {
+  text-align: center;
+  color: darkolivegreen;
+  font-size: xx-large;
+  font-weight: bold;
+}

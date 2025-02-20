@@ -1,0 +1,27 @@
+.mainContainer {
+    padding: 50px;
+}
+
+.bankCreateSuccess {
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}
+
+.bankCreateError {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
+
+.modelError {
+    color: red;
+    font-size: medium;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.header {
+    background-color: lightblue;
+    text-align: left;
+}

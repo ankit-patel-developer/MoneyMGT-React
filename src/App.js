@@ -6,6 +6,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header/Header";
 import Home from "./components/Home_/Home";
 import Bank from "./components/Bank_/Bank";
+import Bank_Create from "./components/Bank_Create/Bank_Create";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/bank" element={<Bank />} />
+            <Route path="/bank-create" element={<Bank_Create />} />
           </Routes>
         </Router>
       </div>

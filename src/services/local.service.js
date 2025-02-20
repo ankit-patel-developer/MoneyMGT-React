@@ -8,6 +8,7 @@ export function getBankColor(bankName) {
   } else if (bankName.search("Scotia") !== -1) {
     return "lightpink";
   } else {
-    return "white";
+    // return "white";
+    return "red";
   }
 }

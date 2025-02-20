@@ -31,19 +31,32 @@ const Bank = () => {
         console.log(e);
       });
   };
-  const getBankStyle = (row, rowIdx) => {
-    var bankColor = getBankColor(row.bankName);
-    console.log(bankColor);
-    // return { backgroundColor: bankColor };
-    return { backgroundColor: "green" };
+
+  const getBankStyle = (bankName) => {
+    return bankName;
   };
 
   const displayBankId = (cell, row) => {
     return (
       <div>
         <span>
-          <i className="bi bi-bank"></i>
-          {cell}
+          <i className="bi bi-bank">
+            {" "}
+            <b>{cell}</b>{" "}
+          </i>
+        </span>
+      </div>
+    );
+  };
+
+  const displayBank = (cell, row) => {
+    return (
+      <div>
+        <span className={getBankStyle(cell)}>
+          <i className="bi bi-bank">
+            {" "}
+            <b>{cell}</b>{" "}
+          </i>
         </span>
       </div>
     );
@@ -89,6 +102,7 @@ const Bank = () => {
       dataField: "bankName",
       text: "Bank Name",
       sort: true,
+      formatter: (cell, row) => displayBank(cell, row),
     },
     {
       dataField: "actions",
@@ -117,21 +131,31 @@ const Bank = () => {
     <div className="container">
       <div className="mainHeader">Banks</div>
       <hr />
-      <h3>Banks!</h3>
-      <p></p>
-      {banks && banks.length > 0 ? (
-        <BootstrapTable
-          bootstrap4
-          keyField="bankId"
-          data={banks}
-          // rowStyle={getBankStyle}
-          rowStyle={{ backgroundColor: "red" }}
-          columns={columns}
-          pagination={paginationFactory({ sizePerPage: 5 })}
-        />
-      ) : (
-        <div className="noBanks">No Banks!</div>
-      )}
+      <div className="row">
+        <div className="col-md-2 mx-auto"></div>
+        <div className="col-md-8 mx-auto">
+          <Button
+            className="btn btn-primary"
+            type="button"
+            onClick={(e) => createNewBank(e)}
+          >
+            <i className="bi bi-plus-circle"></i> Bank
+          </Button>
+          <p></p>
+          {banks && banks.length > 0 ? (
+            <BootstrapTable
+              bootstrap4
+              keyField="bankId"
+              data={banks}
+              columns={columns}
+              pagination={paginationFactory({ sizePerPage: 5 })}
+            />
+          ) : (
+            <div className="noBanks">No Banks!</div>
+          )}
+        </div>
+        <div className="col-md-2 mx-auto"></div>
+      </div>
     </div>
   );
 };
