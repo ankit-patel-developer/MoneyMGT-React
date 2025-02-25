@@ -4,7 +4,7 @@ import "./style.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import BankService from "../../services/bankService.js";
+import BankService from "../../../services/bankService.js";
 
 import { useNavigate } from "react-router";
 
@@ -85,7 +85,6 @@ const Bank_Create = () => {
       };
 
       // api call
-
       BankService.createBank(bankModel)
         .then((response) => {
           setModelErrors([]);

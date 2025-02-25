@@ -5,8 +5,9 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 import Header from "./components/Header/Header";
 import Home from "./components/Home_/Home";
-import Bank from "./components/Bank_/Bank";
-import Bank_Create from "./components/Bank_Create/Bank_Create";
+import Bank from "./components/Bank_/Bank/Bank";
+import Bank_Create from "./components/Bank_/Bank_Create/Bank_Create";
+import Bank_Edit from "./components/Bank_/Bank_Edit/Bank_Edit";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/bank" element={<Bank />} />
             <Route path="/bank-create" element={<Bank_Create />} />
+            <Route path="/bank-edit/:id" element={<Bank_Edit />} />
           </Routes>
         </Router>
       </div>
