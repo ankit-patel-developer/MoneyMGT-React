@@ -8,7 +8,19 @@ export function getBankColor(bankName) {
   } else if (bankName.search("Scotia") !== -1) {
     return "lightpink";
   } else {
-    // return "white";
-    return "red";
+    return "white";
   }
 }
+
+export function getAccountType(ac) {
+  if (ac === 0) return "Chequing";
+  if (ac === 1) return "Savings";
+  if (ac === 2) return "TFSA";
+}
+
+export function getAccountColor(acType) {
+  if (acType === 0) return "green";
+  if (acType === 1) return "blue";
+  if (acType === 2) return "red";
+}
+

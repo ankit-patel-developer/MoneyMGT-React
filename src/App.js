@@ -8,6 +8,7 @@ import Home from "./components/Home_/Home";
 import Bank from "./components/Bank_/Bank/Bank";
 import Bank_Create from "./components/Bank_/Bank_Create/Bank_Create";
 import Bank_Edit from "./components/Bank_/Bank_Edit/Bank_Edit";
+import Bank_Account_List from "./components/Bank_/Bank_Account_List/Bank_Account_List";
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
             <Route path="/bank" element={<Bank />} />
             <Route path="/bank-create" element={<Bank_Create />} />
             <Route path="/bank-edit/:id" element={<Bank_Edit />} />
+            <Route
+              path="/bank-account-list/:id"
+              element={<Bank_Account_List />}
+            />
           </Routes>
         </Router>
       </div>

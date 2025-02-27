@@ -36,52 +36,26 @@ const Bank = () => {
     return bankName;
   };
 
-  const displayBankId = (cell, row) => {
-    return (
-      <div>
-        <span>
-          <i className="bi bi-bank">
-            {" "}
-            <b>{cell}</b>{" "}
-          </i>
-        </span>
-      </div>
-    );
-  };
-
   const displayBank = (cell, row) => {
     return (
       <div>
-        <span className={getBankStyle(cell)}>
-          <i className="bi bi-bank">
-            {" "}
-            <b>{cell}</b>{" "}
-          </i>
-        </span>
-      </div>
-    );
-  };
-  const displayActionBtn = (cell, row) => {
-    // console.log(row);
-    return (
-      <div>
-        {" "}
+        &nbsp;
         <Button
           className="btn btn-info"
           type="button"
           onClick={(e) => editBank(e, row.bankId)}
         >
           <i className="bi bi-pencil-square"></i>
-        </Button>{" "}
+        </Button>
+        &nbsp;&nbsp;
+        <span className={getBankStyle(cell)}>
+          <i className="bi bi-bank">
+            {" "}
+            <b>{cell}</b>{" "}
+          </i>
+        </span>
         <Button
-          className="btn btn-danger"
-          type="button"
-          onClick={(e) => removeBank(e, row.bankId)}
-        >
-          <i className="bi bi-trash"></i>
-        </Button>{" "}
-        <Button
-          className="btn btn-success"
+          className="btn btn-success rightAlign"
           type="button"
           onClick={(e) => getAccounts(e, row.bankId)}
         >
@@ -93,21 +67,10 @@ const Bank = () => {
 
   const columns = [
     {
-      dataField: "bankId",
-      text: "#",
-      sort: true,
-      formatter: (cell, row) => displayBankId(cell, row),
-    },
-    {
       dataField: "bankName",
-      text: "Bank Name",
+      text: "Bank",
       sort: true,
       formatter: (cell, row) => displayBank(cell, row),
-    },
-    {
-      dataField: "actions",
-      text: "Actions",
-      formatter: (cell, row) => displayActionBtn(cell, row),
     },
   ];
 
@@ -117,10 +80,6 @@ const Bank = () => {
   const editBank = (e, bankId) => {
     console.log("edit bank : ", bankId);
     navigate("/bank-edit/" + bankId);
-  };
-  const removeBank = (e, bankId) => {
-    console.log("remove bank : ", bankId);
-    navigate("/bank-remove/" + bankId);
   };
   const getAccounts = (e, bankId) => {
     console.log("getting accounts for bank : ", bankId);
@@ -132,8 +91,8 @@ const Bank = () => {
       <div className="mainHeader">Banks</div>
       <hr />
       <div className="row">
-        <div className="col-md-2 mx-auto"></div>
-        <div className="col-md-8 mx-auto">
+        <div className="col-md-3 mx-auto"></div>
+        <div className="col-md-6 mx-auto">
           <Button
             className="btn btn-primary"
             type="button"
@@ -149,12 +108,12 @@ const Bank = () => {
               data={banks}
               columns={columns}
               pagination={paginationFactory({ sizePerPage: 5 })}
-            />
+            ></BootstrapTable>
           ) : (
             <div className="noBanks">No Banks!</div>
           )}
         </div>
-        <div className="col-md-2 mx-auto"></div>
+        <div className="col-md-3 mx-auto"></div>
       </div>
     </div>
   );
