@@ -67,13 +67,146 @@ const Bank_Account_List = () => {
     getBankAccounts(id);
   }, []);
 
+  const displayAcType = (cell, row) => {
+    return (
+      <div>
+        <b>
+          <span style={{ color: `${getAccountColor(cell)}` }}>
+            {getAccountType(cell)}
+          </span>
+        </b>
+      </div>
+    );
+  };
+
+  const displayAccountNumber = (cell, row) => {
+    return (
+      <div>
+        <span>
+          <i className="bi bi-bag"></i> <b>{cell}</b>
+        </span>
+      </div>
+    );
+  };
+  const displayActionBtn = (cell, row) => {
+    return (
+      <div>
+        {" "}
+        <div className="marginBtwnBtns">
+          <Button
+            className="btn btn-danger"
+            type="button"
+            // onClick={(e) => bankTransactionBeginAdd(e, row)}
+          >
+            Withdraw
+          </Button>
+        </div>
+        <div className="marginBtwnBtns">
+          <Button
+            className="btn btn-success"
+            type="button"
+            // onClick={(e) => bankInputFromSource(e, row)}
+          >
+            Deposit
+          </Button>
+        </div>
+        <div className="marginBtwnBtns">
+          <Button
+            className="btn btn-info"
+            type="button"
+            // onClick={(e) => getAccountStatementAll(e, row)}
+          >
+            Statement
+          </Button>
+        </div>{" "}
+      </div>
+    );
+  };
+
+  const displayBalance = (cell, row) => {
+    return (
+      <div>
+        <span>
+          <h5>{cell}</h5>
+        </span>
+      </div>
+    );
+  };
+  const columns = [
+    {
+      dataField: "accountNumber",
+      text: "Account Number",
+      sort: true,
+      formatter: (cell, row) => displayAccountNumber(cell, row),
+    },
+    {
+      dataField: "accountType",
+      text: "Account Type",
+      sort: true,
+      formatter: (cell, row) => displayAcType(cell, row),
+    },
+    {
+      dataField: "balance",
+      text: "Balance",
+      sort: true,
+      formatter: (cell, row) => displayBalance(cell, row),
+    },
+    {
+      dataField: "actions",
+      text: "Actions",
+      formatter: (cell, row) => displayActionBtn(cell, row),
+    },
+  ];
+
+  const goBack = (e) => {
+    navigate("/bank");
+  };
+
   return (
     <div className="container">
       <div className="mainHeader">Bank-Accounts</div>
       <hr />
       <div className="row">
         <div className="col-md-1 mx-auto"></div>
-        <div className="col-md-10 mx-auto"></div>
+        <div className="col-md-10 mx-auto">
+          <div className="card">
+            <div className="card-header">
+              <div className="row">
+                <div className="col-md-10 mx-auto">
+                  {bankAcResponse ? (
+                    <h4 style={{ color: responseColor }}>{bankAcResponse}</h4>
+                  ) : (
+                    <h4 className={getBankStyle(bankName)}>
+                      {bankName} Accounts ...
+                    </h4>
+                  )}
+                </div>
+                <div className="col-md-2 mx-auto">
+                  <Button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={(e) => goBack(e)}
+                  >
+                    <i className="bi bi-arrow-return-left"></i> Back
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          {bankAccounts && bankAccounts.length > 0 ? (
+            <BootstrapTable
+              bootstrap4
+              keyField="accountId"
+              data={bankAccounts}
+              columns={columns}
+              pagination={paginationFactory({ sizePerPage: 5 })}
+              // filter={filterFactory()}
+            />
+          ) : (
+            <div className="noBanks">No Accounts!</div>
+          )}
+        </div>
         <div className="col-md-1 mx-auto"></div>
       </div>
     </div>
