@@ -105,7 +105,7 @@ const Bank_Account_List = () => {
           <Button
             className="btn btn-success"
             type="button"
-            // onClick={(e) => bankInputFromSource(e, row)}
+            onClick={(e) => doDeposit(e, row)}
           >
             Deposit
           </Button>
@@ -160,6 +160,23 @@ const Bank_Account_List = () => {
 
   const goBack = (e) => {
     navigate("/bank");
+  };
+
+  // deposit
+  const doDeposit = (e, account) => {
+    var depositTransactionObj = {
+      bankId: id,
+      bankName: bankName,
+      accountId: account.accountId,
+      accountNumber: account.accountNumber,
+      balance: account.balance,
+    };
+    console.log(depositTransactionObj);
+    
+    navigate("/deposit-transaction", {
+      state: depositTransactionObj,
+    });
+    
   };
 
   return (

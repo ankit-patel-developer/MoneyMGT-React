@@ -1,0 +1,9 @@
+.mainContainer {
+    padding: 50px;
+}
+
+.notFound {
+    color: red;
+    font-size: xx-large;
+    font-weight: bold;
+}
