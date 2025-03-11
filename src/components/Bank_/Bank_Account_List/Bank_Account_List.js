@@ -170,13 +170,13 @@ const Bank_Account_List = () => {
       accountId: account.accountId,
       accountNumber: account.accountNumber,
       balance: account.balance,
+      accountType: getAccountType(account.accountType),
     };
     console.log(depositTransactionObj);
-    
+
     navigate("/deposit-transaction", {
       state: depositTransactionObj,
     });
-    
   };
 
   return (

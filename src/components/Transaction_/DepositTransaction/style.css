@@ -7,10 +7,30 @@
     border: 2px solid green;
     border-radius: 10px;
     background-color: lightyellow;
-    font-size: medium; 
+    font-size: large; 
     font-weight: bold;   
 }
 
-.title{
+.headerTitle{
     color: green;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.bankName {
+    color: green;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.depositCreateSuccess {
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}
+
+.depositCreateError {
+    color: red;
+    font-size: large;
+    font-weight: bold;
 }
