@@ -42,3 +42,10 @@ code {
   font-size: xx-large;
   font-weight: bold;
 }
+
+.mainHeaderWithdraw {
+  text-align: center;
+  color: red;
+  font-size: xx-large;
+  font-weight: bold;
+}

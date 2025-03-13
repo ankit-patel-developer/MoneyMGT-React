@@ -1,0 +1,36 @@
+.bankHeaderW {
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 2px solid crimson;
+    border-radius: 10px;
+    background-color: lightyellow;
+    font-size: large;
+    font-weight: bold;
+}
+
+.headerTitleW {
+    color: crimson;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.bankNameW {
+    color: crimson;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.withdrawCreateSuccessW {
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}
+
+.withdrawCreateErrorW {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}

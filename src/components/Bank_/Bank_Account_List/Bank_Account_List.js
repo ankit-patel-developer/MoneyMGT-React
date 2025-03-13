@@ -96,7 +96,7 @@ const Bank_Account_List = () => {
           <Button
             className="btn btn-danger"
             type="button"
-            // onClick={(e) => bankTransactionBeginAdd(e, row)}
+            onClick={(e) => doWithdraw(e, row)}
           >
             Withdraw
           </Button>
@@ -179,6 +179,22 @@ const Bank_Account_List = () => {
     });
   };
 
+  // withdraw
+  const doWithdraw = (e, account) => {
+    var bankTransaction = {
+      bankId: id,
+      bankName: bankName,
+      accountId: account.accountId,
+      accountNumber: account.accountNumber,
+      balance: account.balance,
+      accountType: getAccountType(account.accountType),
+    };
+    console.log(bankTransaction);
+
+    navigate("/withdraw-transaction", {
+      state: bankTransaction,
+    });
+  };
   return (
     <div className="container">
       <div className="mainHeader">Bank-Accounts</div>
