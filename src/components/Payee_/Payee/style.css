@@ -1,0 +1,7 @@
+.ccPayeeStyle {
+    color: blue;
+    font-size: larger;
+}
+.notCCPayeeStyle {
+    font-size: medium;
+}

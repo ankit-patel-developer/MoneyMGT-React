@@ -131,6 +131,7 @@ const WithdrawTransaction = () => {
           }
         })
         .catch((error) => {
+          console.log(error);
           if (error.response.request.status === 400) {
             trCreateResponse = {
               responseCode: -1,

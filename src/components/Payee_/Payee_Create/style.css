@@ -1,0 +1,16 @@
+.payeeCreateSuccess {
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}
+
+.payeeCreateError {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
+
+.header {
+    background-color: lightblue;
+    text-align: left;
+}
