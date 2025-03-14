@@ -36,6 +36,13 @@ code {
   font-weight: bold;
 }
 
+.noPayees {
+  text-align: center;
+  color: red;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
 .mainHeader {
   text-align: center;
   color: darkolivegreen;

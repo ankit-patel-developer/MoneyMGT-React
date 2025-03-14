@@ -5,3 +5,6 @@
 .notCCPayeeStyle {
     font-size: medium;
 }
+.payeeStyle{
+    font-weight: bold;
+}

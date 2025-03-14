@@ -12,7 +12,6 @@ import Moment from "moment";
 const Payee_Create = () => {
   let navigate = useNavigate();
 
-  const [modelErrors, setModelErrors] = useState([]);
   const [payeeTypes, setPayeeTypes] = useState([]);
   const [payeeCreateResponse, setPayeeCreateResponse] = useState({});
 
@@ -110,7 +109,6 @@ const Payee_Create = () => {
       // api call
       PayeeService.createPayee(payeeModel)
         .then((response) => {
-          setModelErrors([]);
           setPayeeCreateResponse({});
           console.log(response.data);
 
@@ -147,7 +145,6 @@ const Payee_Create = () => {
     setErrors({});
     setForm({});
     setPayeeCreateResponse({});
-    setModelErrors([]);
   };
 
   const renderOptionsForPayeeTypes = () => {
