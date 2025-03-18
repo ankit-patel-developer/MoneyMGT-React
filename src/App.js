@@ -14,6 +14,7 @@ import Withdraw_Transaction from "./components/Transaction_/WithdrawTransaction/
 import Payee from "./components/Payee_/Payee/Payee";
 import Payee_Create from "./components/Payee_/Payee_Create/Payee_Create";
 import Payee_Edit from "./components/Payee_/Payee_Edit/Payee_Edit";
+import CreditCard from "./components/CreditCard_/CreditCard/CreditCard";
 import NotFound from "./components/NotFound_/NotFound";
 function App() {
   return (
@@ -44,6 +45,8 @@ function App() {
             <Route path="/payee" element={<Payee />} />
             <Route path="/payee-create" element={<Payee_Create />} />
             <Route path="/payee-edit/:id" element={<Payee_Edit />} />
+
+            <Route path="/credit-card" element={<CreditCard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

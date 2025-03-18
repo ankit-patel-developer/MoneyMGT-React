@@ -1,3 +1,9 @@
 .marginBtwnBtns{
     margin-bottom: 10px;
 }
+
+.totalBalance {
+    padding-left: 20px;
+    font-style: italic;
+    font-stretch: expanded;
+}

@@ -101,4 +101,15 @@ export function getPayeeTypeName(payeeType) {
   } else return "Others";
 }
 
+export function getCCTypeColor(ccName) {
+  if (ccName.toLowerCase().search("visa") !== -1) {
+    return "orange";
+  } else if (ccName.toLowerCase().search("master") !== -1) {
+    return "blue";
+  } else {
+    return "black";
+  }
+}
+
+
 

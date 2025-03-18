@@ -127,7 +127,7 @@ const Bank_Account_List = () => {
     return (
       <div>
         <span>
-          <h5>{cell}</h5>
+          <h5>${(Math.round(cell * 100) / 100).toFixed(2)}</h5>
         </span>
       </div>
     );
@@ -209,9 +209,23 @@ const Bank_Account_List = () => {
                   {bankAcResponse ? (
                     <h4 style={{ color: responseColor }}>{bankAcResponse}</h4>
                   ) : (
-                    <h4 className={getBankStyle(bankName)}>
-                      {bankName} Accounts ...
-                    </h4>
+                    <div>
+                      <div className={getBankStyle(bankName)}>
+                        {bankName}
+
+                        <span className="totalBalance">
+                          [ Total Balance : $
+                          {(
+                            Math.round(
+                              bankAccounts.reduce(
+                                (accum, item) => accum + item.balance,
+                                0
+                              ) * 100
+                            ) / 100
+                          ).toFixed(2)} ]
+                        </span>
+                      </div>
+                    </div>
                   )}
                 </div>
                 <div className="col-md-2 mx-auto">

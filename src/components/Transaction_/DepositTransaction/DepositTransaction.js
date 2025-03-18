@@ -216,7 +216,8 @@ const DepositTransaction = () => {
                   <div className="bankHeader">
                     Account : {accountNumber} [{accountType}]
                     <br />
-                    Current Balance : {balance}
+                    Current Balance :{" "}
+                    {(Math.round(balance * 100) / 100).toFixed(2)}
                   </div>
                 </div>
                 <div className="col-md-2 mx-auto"></div>

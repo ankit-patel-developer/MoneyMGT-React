@@ -37,24 +37,24 @@ const Payee = () => {
   }, []);
 
   const displayPayee = (cell, row) => {
-      return (
-        <div className="payeeStyle">
-          <div className={displayPayeeTypeStyle(row.payeeType)}>
-            <Button
-              className="btn btn-info"
-              type="button"
-              onClick={(e) => editPayee(e, row.payeeId)}
-            >
-              <i className="bi bi-pencil-square"></i>
-            </Button>
-            &nbsp;
-            <span>
-              <i className={getPayeeIcon(row.payeeType)}></i> {row.payeeName}
-            </span>
-            <div>A/C # {row.payeeACNumber}</div>
-          </div>
+    return (
+      <div className="payeeStyle">
+        <div className={displayPayeeTypeStyle(row.payeeType)}>
+          <Button
+            className="btn btn-info"
+            type="button"
+            onClick={(e) => editPayee(e, row.payeeId)}
+          >
+            <i className="bi bi-pencil-square"></i>
+          </Button>
+          &nbsp;
+          <span>
+            <i className={getPayeeIcon(row.payeeType)}></i> {row.payeeName}
+          </span>
+          <div>A/C # {row.payeeACNumber}</div>
         </div>
-      );
+      </div>
+    );
   };
   const displayPayeeType = (cell, row) => {
     return (
@@ -69,17 +69,29 @@ const Payee = () => {
         {row.payeeType === 3 ? (
           <span>
             {Number(cell) > 0 ? (
-              <span style={{ color: "green" }}>
-                <b>{cell}</b>
+              <span
+                style={{
+                  color: "green",
+                  fontWeight: "bold",
+                  fontSize: "large",
+                }}
+              >
+                <b>${(Math.round(cell * 100) / 100).toFixed(2)}</b>
               </span>
             ) : (
-              <span style={{ color: "red" }}>
-                <b>{cell}</b>
+              <span
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  fontSize: "large",
+                }}
+              >
+                <b>${(Math.round(cell * 100) / 100).toFixed(2)}</b>
               </span>
             )}
           </span>
         ) : (
-          <span>{cell}</span>
+          <span></span>
         )}
       </div>
     );

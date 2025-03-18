@@ -40,7 +40,7 @@ const Header = () => {
               <i className="bi bi-cash-coin"></i>
               Payee
             </Link>
-            <Link to={"/creditcard"} className="nav-link">
+            <Link to={"/credit-card"} className="nav-link">
               <i className="bi bi-credit-card"></i>
               CreditCard
             </Link>
