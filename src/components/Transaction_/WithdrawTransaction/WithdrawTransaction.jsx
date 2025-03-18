@@ -115,7 +115,7 @@ const WithdrawTransaction = () => {
           setWithdrawCreateResponse({});
           console.log(response.data);
 
-          var trCreateResponse = {
+          trCreateResponse = {
             responseCode: response.data.responseCode,
             responseMessage: response.data.responseMessage,
           };

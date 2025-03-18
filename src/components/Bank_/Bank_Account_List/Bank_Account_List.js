@@ -83,6 +83,14 @@ const Bank_Account_List = () => {
     return (
       <div>
         <span>
+          <Button
+            className="btn btn-info"
+            type="button"
+            onClick={(e) => editBankAccount(e, id, cell)}
+          >
+            <i className="bi bi-pencil-square"></i>
+          </Button>
+          &nbsp;
           <i className="bi bi-bag"></i> <b>{cell}</b>
         </span>
       </div>
@@ -195,6 +203,16 @@ const Bank_Account_List = () => {
       state: bankTransaction,
     });
   };
+
+  // wip
+  const createNewAccount = (e, bankId) => {
+    console.log(bankId);
+  };
+
+  // wip
+  const editBankAccount = (e, bankId, accountId) => {
+    console.log(bankId, accountId);
+  };
   return (
     <div className="container">
       <div className="mainHeader">Bank-Accounts</div>
@@ -222,8 +240,21 @@ const Bank_Account_List = () => {
                                 0
                               ) * 100
                             ) / 100
-                          ).toFixed(2)} ]
+                          ).toFixed(2)}{" "}
+                          ]
                         </span>
+                        <div>
+                          <Button
+                            className="btn btn-success"
+                            type="button"
+                            onClick={(e) => createNewAccount(e, id)}
+                          >
+                            <i className="bi bi-plus-circle"></i>{" "}
+                            <span className="newAccount">
+                              Create New Account!
+                            </span>
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   )}

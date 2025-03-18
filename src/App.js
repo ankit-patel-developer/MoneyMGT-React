@@ -15,6 +15,7 @@ import Payee from "./components/Payee_/Payee/Payee";
 import Payee_Create from "./components/Payee_/Payee_Create/Payee_Create";
 import Payee_Edit from "./components/Payee_/Payee_Edit/Payee_Edit";
 import CreditCard from "./components/CreditCard_/CreditCard/CreditCard";
+import CreditCard_Transaction from "./components/CreditCard_/CreditCard_Transaction/CreditCard_Transaction";
 import NotFound from "./components/NotFound_/NotFound";
 function App() {
   return (
@@ -47,6 +48,10 @@ function App() {
             <Route path="/payee-edit/:id" element={<Payee_Edit />} />
 
             <Route path="/credit-card" element={<CreditCard />} />
+            <Route
+              path="/credit-card-transaction"
+              element={<CreditCard_Transaction />}
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

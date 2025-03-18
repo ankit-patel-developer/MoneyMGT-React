@@ -1,0 +1,21 @@
+.ccHeader {
+    text-align: center;
+    vertical-align: middle;
+    border: 2px solid green;
+    border-radius: 10px;
+    background-color: lightyellow;
+    font-size: large;
+    font-weight: bold;
+}
+
+.ccTrAddCreateSuccess {
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}
+
+.ccTrAddCreateError {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
