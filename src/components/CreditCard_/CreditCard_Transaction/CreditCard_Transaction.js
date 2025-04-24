@@ -179,7 +179,9 @@ const CreditCard_Transaction = () => {
                         CC A/C Number : {ccAccountNumber}
                         <br />
                         Maximum Pay :{" "}
-                        {(Math.round(balance * 100) / 100).toFixed(2)}
+                        <span className="maxPay">
+                          ${(Math.round(balance * 100) / 100).toFixed(2)}
+                        </span>
                       </div>
                     </div>
                     <div className="col-md-4 ml-auto">

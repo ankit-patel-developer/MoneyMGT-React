@@ -10,8 +10,10 @@ import {
   getBankColor,
   getAccountType,
   getAccountColor,
+  getBankStyleLocal,
 } from "../../../services/local.service";
 import AccountService from "../../../services/accountService.js";
+import StatementService from "../../../services/statementService.js";
 
 import { useNavigate } from "react-router";
 
@@ -38,7 +40,8 @@ const Bank_Account_List = () => {
   };
 
   const getBankStyle = (bankName) => {
-    return bankName;
+    // return bankName;
+    return getBankStyleLocal(bankName);
   };
 
   const getBankAccounts = (id) => {
@@ -84,7 +87,7 @@ const Bank_Account_List = () => {
       <div>
         <span>
           <Button
-            className="btn btn-info"
+            className="btn btn-warning"
             type="button"
             onClick={(e) => editBankAccount(e, id, cell)}
           >
@@ -213,6 +216,32 @@ const Bank_Account_List = () => {
   const editBankAccount = (e, bankId, accountId) => {
     console.log(bankId, accountId);
   };
+
+  // wip
+  const getBankStatement = () => {
+    var bank = {
+      bankId: parseInt(id),
+      bankName: bankName,
+    };
+    console.log(bank);
+
+    // api call
+    StatementService.getBankStatement(bank)
+      .then((response) => {
+        if (response.data.responseCode === -1) {
+          // server error
+          // bank has no a/c yet
+          console.log(response.data.responseMessage);
+        } else {
+          console.log(response.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.status === 400) console.log(error.response.statusText);
+      });
+  };
+
   return (
     <div className="container">
       <div className="mainHeader">Bank-Accounts</div>
@@ -245,14 +274,23 @@ const Bank_Account_List = () => {
                         </span>
                         <div>
                           <Button
-                            className="btn btn-success"
+                            className="btn btn-warning"
                             type="button"
                             onClick={(e) => createNewAccount(e, id)}
                           >
-                            <i className="bi bi-plus-circle"></i>{" "}
+                            <i className="bi bi-person-plus-fill"></i>{" "}
                             <span className="newAccount">
                               Create New Account!
                             </span>
+                          </Button>
+                          &nbsp;
+                          <Button
+                            className="btn btn-info"
+                            type="button"
+                            onClick={(e) => getBankStatement()}
+                          >
+                            <i className="bi bi-list-columns"></i>{" "}
+                            <span className="newAccount">Bank Statement</span>
                           </Button>
                         </div>
                       </div>

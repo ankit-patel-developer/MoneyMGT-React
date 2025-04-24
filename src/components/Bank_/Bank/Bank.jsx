@@ -3,7 +3,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./style.css";
 import BankService from "../../../services/bankService.js";
-import { getBankColor } from "../../../services/local.service";
+import {
+  getBankColor,
+  getBankStyleLocal,
+} from "../../../services/local.service";
 import { useNavigate } from "react-router-dom";
 
 // React Bootstrap Table/Pagination
@@ -33,7 +36,8 @@ const Bank = () => {
   };
 
   const getBankStyle = (bankName) => {
-    return bankName;
+    // return bankName;
+    return getBankStyleLocal(bankName);
   };
 
   const displayBank = (cell, row) => {

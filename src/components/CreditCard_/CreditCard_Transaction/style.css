@@ -19,3 +19,12 @@
     font-size: large;
     font-weight: bold;
 }
+
+.maxPay {
+    color: white;
+    background-color: black;
+    font-weight: bold;
+    font-size: larger;
+    padding-left: 5px;
+    padding-right: 5px;    
+}

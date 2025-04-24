@@ -36,15 +36,32 @@ code {
   font-weight: bold;
   font-size: x-large;
 }
+.Unknown{
+  color: yellowgreen;
+  font-weight: bold;
+  font-size: x-large;
+}
 
-.noBanks .noPayees .noCCs {
+.noBanks {
   text-align: center;
   color: red;
   font-size: xx-large;
   font-weight: bold;
 }
 
+.noPayees {
+  text-align: center;
+  color: red;
+  font-size: xx-large;
+  font-weight: bold;
+}
 
+.noCCs {
+  text-align: center;
+  color: red;
+  font-size: xx-large;
+  font-weight: bold;
+}
 
 .mainHeader {
   text-align: center;

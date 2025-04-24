@@ -12,6 +12,20 @@ export function getBankColor(bankName) {
   }
 }
 
+export function getBankStyleLocal(bankName) {
+  if (bankName.search("CIBC") !== -1) {
+    return "CIBC";
+  } else if (bankName.search("TD") !== -1) {
+    return "TD";
+  } else if (bankName.search("RBC") !== -1) {
+    return "RBC";
+  } else if (bankName.search("Scotia") !== -1) {
+    return "Scotia";
+  } else {
+    return "Unknown";
+  }
+}
+
 export function getAccountType(ac) {
   if (ac === 0) return "Chequing";
   if (ac === 1) return "Savings";
@@ -110,6 +124,3 @@ export function getCCTypeColor(ccName) {
     return "black";
   }
 }
-
-
-
