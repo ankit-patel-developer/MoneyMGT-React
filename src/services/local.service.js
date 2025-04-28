@@ -124,3 +124,17 @@ export function getCCTypeColor(ccName) {
     return "black";
   }
 }
+
+export function getAmountSign(transactionType) {
+  if (transactionType === 1) {
+    return "-";
+  }
+  if (transactionType === 0) {
+    return "+";
+  }
+}
+export function getTransactionTypeDisplay(transactionType) {
+  if (transactionType === 0) return "In";
+  if (transactionType === 1) return "Out";
+}
+

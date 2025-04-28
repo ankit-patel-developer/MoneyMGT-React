@@ -33,6 +33,9 @@ const Bank_Account_List = () => {
   const [bankAcResponse, setBankAcResponse] = useState("");
   const [responseColor, setResponseColor] = useState("");
 
+  // state var passing to bank-statement component
+  // { bankId, bankName, [] bankAccounts-> {,,, [] transactions} }
+
   const checkForNumbersOnly = (newVal) => {
     const re = /^\d*\.?\d*$/;
     if (re.test(newVal)) return true;
@@ -233,7 +236,26 @@ const Bank_Account_List = () => {
           // bank has no a/c yet
           console.log(response.data.responseMessage);
         } else {
+          // bank statement data
           console.log(response.data);
+
+          // state var passing to bank-statement component
+          // { bankId, bankName, [] bankAccounts-> {,,, [] transactions} }
+          navigate("/bank-statement", {
+            state: {
+              bankId: response.data.bankId,
+              bankName: response.data.bankName,
+              bankAccounts: response.data.bankAccounts,
+              totalBalance: (
+                Math.round(
+                  bankAccounts.reduce(
+                    (accum, item) => accum + item.balance,
+                    0
+                  ) * 100
+                ) / 100
+              ).toFixed(2),
+            },
+          });
         }
       })
       .catch((error) => {
