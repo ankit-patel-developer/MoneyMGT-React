@@ -17,7 +17,7 @@ import { useNavigate, useLocation } from "react-router";
 
 import Moment from "moment";
 
-import Transactions from "../Transactions/Transactions";
+import Accounts from "../Accounts/Accounts";
 
 const BankStatement = () => {
   let navigate = useNavigate();
@@ -28,7 +28,7 @@ const BankStatement = () => {
   useEffect(() => {
     if (bankId === undefined || bankName === undefined) navigate("/bank");
     else {
-      displayBankStatement();
+      // displayBankStatement();
     }
   }, []);
 
@@ -81,6 +81,9 @@ const BankStatement = () => {
                 </div>
                 <div className="col-md-2 mx-auto"></div>
               </div>
+            </div>
+            <div className="card-body">
+              <Accounts myAccounts={bankAccounts} />
             </div>
           </div>
           <p></p>
