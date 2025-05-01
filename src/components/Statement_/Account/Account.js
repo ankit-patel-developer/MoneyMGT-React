@@ -1,8 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 
+import "./style.css";
+
 import Moment from "moment";
 
-import { getAccountType } from "../../../services/local.service";
+import {
+  getAccountType,
+  getEntityName,
+  getAmountSign,
+} from "../../../services/local.service";
 
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -25,6 +31,33 @@ const Account = ({ myAccount }) => {
     console.log("child component : ", myAccount);
   }, [myAccount]);
 
+  const displayDate = (cell) => {
+    if (cell === null || cell === "") return "N/A";
+    else {
+      return Moment(cell).format("DD-MMM-YYYY");
+    }
+  };
+
+  const displayAmount = (cell, row) => {
+    return (
+      <div>
+        {row.transactionType === 0 && (
+          <div className="plusTran">
+            {getAmountSign(row.transactionType)}&nbsp;
+            {cell}
+          </div>
+        )}
+
+        {row.transactionType === 1 && (
+          <div className="minusTran">
+            {getAmountSign(row.transactionType)}&nbsp;
+            {((cell * 100) / 100).toFixed(2)}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <React.Fragment>
       <TableRow
@@ -41,14 +74,16 @@ const Account = ({ myAccount }) => {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          <span>
+          <span className="accountStyle">
             {myAccount.accountNumber}
             <br />
             <span>{getAccountType(myAccount.accountType)}</span>
           </span>
         </TableCell>
         <TableCell align="right">
-          {((myAccount.lastBalance * 100) / 100).toFixed(2)}
+          <span className="accountStyle">
+            {((myAccount.lastBalance * 100) / 100).toFixed(2)}
+          </span>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -56,22 +91,25 @@ const Account = ({ myAccount }) => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                <span className="title">Transactions</span>
+                <span className="trHeader">Transactions</span>
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>
-                      <span className="header">Transaction #</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="header">Current Balance</span>
+                      <span className="statHeader">Date</span>
                     </TableCell>
                     <TableCell align="left">
-                      <span className="header">Last Balance</span>
+                      <span className="statHeader">Entity</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span className="header">Amount ($)</span>
+                      <span className="statHeader">Amount ($)</span>
+                    </TableCell>
+                    <TableCell align="right">
+                      <span className="statHeader">Last Balance ($)</span>
+                    </TableCell>
+                    <TableCell align="right">
+                      <span className="statHeader">Current Balance ($)</span>
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -79,16 +117,17 @@ const Account = ({ myAccount }) => {
                   {myAccount.transactions.map((tr) => (
                     <TableRow key={tr.transactionId}>
                       <TableCell component="th" scope="row">
-                        {tr.bankTransactionId}
+                        {displayDate(tr.transactionDate)}
                       </TableCell>
-                      <TableCell>
-                        {((tr.currentBalance * 100) / 100).toFixed(2)}
+                      <TableCell align="left">{getEntityName(tr)}</TableCell>
+                      <TableCell align="right">
+                        {displayAmount(tr.amountPaid, tr)}
                       </TableCell>
-                      <TableCell align="left">
+                      <TableCell align="right">
                         {((tr.lastBalance * 100) / 100).toFixed(2)}
                       </TableCell>
                       <TableCell align="right">
-                        {((tr.amountPaid * 100) / 100).toFixed(2)}
+                        {((tr.currentBalance * 100) / 100).toFixed(2)}
                       </TableCell>
                     </TableRow>
                   ))}

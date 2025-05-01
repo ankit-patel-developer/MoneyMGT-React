@@ -1,12 +1,26 @@
-.title {
+.statHeader {
     font-style: italic;
     font-weight: bold;
-}
-.header {
-    text-align: left;
-    color: white;
-    background-color: black;
-    font-size: large;
-    padding: 5px;    
+    font-size: medium;
 }
 
+.trHeader {
+    font-style: italic;
+    font-weight: bold;
+    font-size: medium;
+    background-color: lightblue;
+    padding: 4px;
+}
+
+.plusTran {
+    color: green;
+}
+
+.minusTran {
+    color: red;
+}
+
+.accountStyle {
+    font-weight: bold;
+    font-size: medium;
+}

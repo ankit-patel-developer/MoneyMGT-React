@@ -45,10 +45,10 @@ const Accounts = ({ myAccounts }) => {
               <TableRow>
                 <TableCell />
                 <TableCell>
-                  <span className="header">Account</span>
+                  <span className="statHeader">Account</span>
                 </TableCell>
                 <TableCell align="right">
-                  <span className="header">Last Balance ($)</span>
+                  <span className="statHeader">Last Balance ($)</span>
                 </TableCell>
               </TableRow>
             </TableHead>

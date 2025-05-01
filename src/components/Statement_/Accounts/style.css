@@ -1,7 +1,5 @@
-.header { 
-    text-align: left;
-    color: white;
-    background-color: black;
-    font-size: large;
-    padding: 5px;
+.statHeader {
+    font-style: italic;
+    font-weight: bold;
+    font-size: medium;
 }

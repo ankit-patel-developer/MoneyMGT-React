@@ -38,6 +38,13 @@ export function getAccountColor(acType) {
   if (acType === 2) return "red";
 }
 
+export function getEntityName(tr) {
+  if (tr.payeeId === 0) {
+    // return source
+    return tr.sourceName;
+  } else return tr.payeeName;
+}
+
 export function getPayeeIcon(payeeType) {
   if (payeeType === 0) {
     return "bi bi-phone-fill";
@@ -137,4 +144,3 @@ export function getTransactionTypeDisplay(transactionType) {
   if (transactionType === 0) return "In";
   if (transactionType === 1) return "Out";
 }
-
