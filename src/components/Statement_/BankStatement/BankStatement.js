@@ -27,31 +27,11 @@ const BankStatement = () => {
 
   useEffect(() => {
     if (bankId === undefined || bankName === undefined) navigate("/bank");
-    else {
-      // displayBankStatement();
-    }
   }, []);
 
   const getBankStyle = (bankName) => {
     // return bankName;
     return getBankStyleLocal(bankName);
-  };
-
-  const displayBankStatement = () => {
-    var accounts = bankAccounts.map((ac) => {
-      console.log("account number # ", ac.accountNumber);
-      console.log("account id # ", ac.accountId);
-      console.log("last balance # ", ac.lastBalance);
-      console.log("-----------transactions------------");
-
-      var transactions = ac.transactions.map((transaction) => {
-        console.log(
-          "------bank transaction id # ",
-          transaction.bankTransactionId
-        );
-        console.log("------amount paid # ", transaction.amountPaid);
-      });
-    });
   };
 
   return (

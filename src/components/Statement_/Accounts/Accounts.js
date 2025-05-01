@@ -15,72 +15,50 @@ import {
 
 import Transactions from "../Transactions/Transactions";
 
+import Box from "@mui/material/Box";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
+import Account from "../Account/Account";
+
 const Accounts = ({ myAccounts }) => {
   useEffect(() => {
     console.log("child component : ", myAccounts);
   }, [myAccounts]);
 
-  const displayAcType = (cell, row) => {
-    return (
-      <div>
-        <b>
-          <span style={{ color: `${getAccountColor(cell)}` }}>
-            {getAccountType(cell)}
-          </span>
-        </b>
-      </div>
-    );
-  };
-  const displayLastBalance = (cell, row) => {
-    return (
-      <div>
-        <span>
-          <h5>${(Math.round(cell * 100) / 100).toFixed(2)}</h5>
-        </span>
-      </div>
-    );
-  };
-  const displayAccountNumber = (cell, row) => {
-    return (
-      <div>
-        <span>
-          <i className="bi bi-bag"></i> <b>{cell}</b>
-        </span>
-      </div>
-    );
-  };
-
-  const columns = [
-    {
-      dataField: "accountNumber",
-      text: "A/C #",
-      sort: true,
-      formatter: (cell, row) => displayAccountNumber(cell, row),
-    },
-    {
-      dataField: "accountType",
-      text: "A/C-Type",
-      sort: true,
-      formatter: (cell, row) => displayAcType(cell, row),
-    },
-    {
-      dataField: "lastBalance",
-      text: "Last-Balance",
-      sort: true,
-      formatter: (cell, row) => displayLastBalance(cell, row),
-    },
-  ];
   return (
     <div>
       {myAccounts && myAccounts.length > 0 ? (
-        <BootstrapTable
-          bootstrap4
-          keyField="accountNumber"
-          data={myAccounts}
-          columns={columns}
-          pagination={paginationFactory({ sizePerPage: 50 })}
-          // filter={filterFactory()}
-        />
+        <TableContainer component={Paper}>
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                <TableCell>
+                  <span className="header">Account</span>
+                </TableCell>
+                <TableCell align="right">
+                  <span className="header">Last Balance ($)</span>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {myAccounts.map((myAccount) => (
+                <Account key={myAccount.accountId} myAccount={myAccount} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       ) : (
         <div className="noTrans">No Accounts!</div>
       )}
