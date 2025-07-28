@@ -12,6 +12,13 @@
     padding: 4px;
 }
 
+
+.trHeaderNoData {
+    font-style: italic;
+    font-size: medium;
+    background-color: red;
+    padding: 4px;
+}
 .plusTran {
     color: green;
 }

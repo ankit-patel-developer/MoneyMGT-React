@@ -26,9 +26,12 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 const Account = ({ myAccount }) => {
   const [open, setOpen] = useState(false);
+  const [display, setDisplay] = useState(true);
 
   useEffect(() => {
     console.log("child component : ", myAccount);
+    if (myAccount.transactions.length >= 1) setDisplay(true);
+    else setDisplay(false);
   }, [myAccount]);
 
   const displayDate = (cell) => {
@@ -91,7 +94,11 @@ const Account = ({ myAccount }) => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                <span className="trHeader">Transactions</span>
+                {!display ? (
+                  <span className="trHeaderNoData">No transactions !</span>
+                ) : (
+                  <span className="trHeader">Transactions</span>
+                )}
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
