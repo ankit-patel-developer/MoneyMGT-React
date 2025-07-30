@@ -30,6 +30,7 @@ const Account = ({ myAccount }) => {
 
   useEffect(() => {
     console.log("child component : ", myAccount);
+
     if (myAccount.transactions.length >= 1) setDisplay(true);
     else setDisplay(false);
   }, [myAccount]);
@@ -95,7 +96,7 @@ const Account = ({ myAccount }) => {
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
                 {!display ? (
-                  <span className="trHeaderNoData">No transactions !</span>
+                  <span className="trHeaderNoData">No Transactions !</span>
                 ) : (
                   <span className="trHeader">Transactions</span>
                 )}

@@ -128,7 +128,7 @@ const Bank_Account_List = () => {
           <Button
             className="btn btn-info"
             type="button"
-            // onClick={(e) => getAccountStatementAll(e, row)}
+            onClick={(e) => getAccountStatement(e, row)}
           >
             Statement
           </Button>
@@ -221,6 +221,50 @@ const Bank_Account_List = () => {
   };
 
   // wip
+  // get bank's account wise statement
+  // all transactions by default
+  const getAccountStatement = (e, row) => {
+    var accountVM = {
+      accountId: row.accountId,
+      accountNumber: row.accountNumber,
+      balance: row.balance,
+      accountType: row.accountType,
+    };
+    // console.log(accountVM);
+
+    // api call    
+    StatementService.getAccountStatement(accountVM)
+      .then((response) => {
+        if (response.data.responseCode === -1) {
+          // server error
+          console.log(response.data.responseMessage);
+        } else {
+          // account statement data
+          // console.log(response.data);
+
+          // state var passing to account-statement component
+          // { bankId, bankName, accountId, accountNumber, accountType, lastBalance, [] transactions }
+          
+          navigate("/account-statement", {
+            state: {
+              bankId: parseInt(id),
+              bankName: bankName,
+              accountId: row.accountId,
+              accountNumber: row.accountNumber,
+              lastBalance: row.balance,
+              accountType: row.accountType,
+              transactions: response.data.transactions,
+            },
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.status === 400) console.log(error.response.statusText);
+      });
+  };
+
+  // ok
   const getBankStatement = () => {
     var bank = {
       bankId: parseInt(id),
@@ -301,7 +345,7 @@ const Bank_Account_List = () => {
                             onClick={(e) => createNewAccount(e, id)}
                           >
                             <i className="bi bi-person-plus-fill"></i>{" "}
-                            <span className="newAccount">
+                            <span className="headerBtn">
                               Create New Account!
                             </span>
                           </Button>
@@ -312,7 +356,7 @@ const Bank_Account_List = () => {
                             onClick={(e) => getBankStatement()}
                           >
                             <i className="bi bi-list-columns"></i>{" "}
-                            <span className="newAccount">Bank Statement</span>
+                            <span className="headerBtn">Bank Statement</span>
                           </Button>
                         </div>
                       </div>

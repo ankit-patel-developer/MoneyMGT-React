@@ -17,6 +17,7 @@ import Payee_Edit from "./components/Payee_/Payee_Edit/Payee_Edit";
 import CreditCard from "./components/CreditCard_/CreditCard/CreditCard";
 import CreditCard_Transaction from "./components/CreditCard_/CreditCard_Transaction/CreditCard_Transaction";
 import BankStatement from "./components/Statement_/BankStatement/BankStatement";
+import AccountStatement from "./components/Statement_/AccountStatement/AccountStatement";
 
 import NotFound from "./components/NotFound_/NotFound";
 function App() {
@@ -55,10 +56,9 @@ function App() {
               element={<CreditCard_Transaction />}
             />
 
-            <Route
-              path="/bank-statement"
-              element={<BankStatement />}
-            />
+            <Route path="/bank-statement" element={<BankStatement />} />
+
+            <Route path="/account-statement" element={<AccountStatement />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
