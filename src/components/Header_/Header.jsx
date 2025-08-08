@@ -32,9 +32,9 @@ const Header = () => {
               <i className="bi bi-bank"></i>
               Bank
             </Link>
-            <Link to={"/account"} className="nav-link">
-              <i className="bi bi-wallet2"></i>
-              Account
+            <Link to={"/virtual-transactions"} className="nav-link">
+              <i className="bi bi-receipt"></i>
+              VT
             </Link>
             <Link to={"/payee"} className="nav-link">
               <i className="bi bi-cash-coin"></i>

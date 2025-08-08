@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-import Header from "./components/Header/Header";
+import Header from "./components/Header_/Header";
 import Home from "./components/Home_/Home";
 import Bank from "./components/Bank_/Bank/Bank";
 import Bank_Create from "./components/Bank_/Bank_Create/Bank_Create";
@@ -18,8 +18,10 @@ import CreditCard from "./components/CreditCard_/CreditCard/CreditCard";
 import CreditCard_Transaction from "./components/CreditCard_/CreditCard_Transaction/CreditCard_Transaction";
 import BankStatement from "./components/Statement_/BankStatement/BankStatement";
 import AccountStatement from "./components/Statement_/AccountStatement/AccountStatement";
+import VirstualTransactions from "./components/VT_/Virtual_Transactions";
 
 import NotFound from "./components/NotFound_/NotFound";
+import Virtual_Transactions from "./components/VT_/Virtual_Transactions";
 function App() {
   return (
     <div className="App">
@@ -59,6 +61,8 @@ function App() {
             <Route path="/bank-statement" element={<BankStatement />} />
 
             <Route path="/account-statement" element={<AccountStatement />} />
+
+            <Route path="/virtual-transactions" element={<Virtual_Transactions />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

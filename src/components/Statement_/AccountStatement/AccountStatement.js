@@ -37,10 +37,10 @@ const AccountStatement = ({ myAccount }) => {
     bankId: state.bankId,
     bankName: state.bankName,
     accountId: state.accountId,
-    accountNumber : state.accountNumber,
-    accountType : state.accountType,
-    lastBalance : state.lastBalance,
-    transactions : state.transactions,
+    accountNumber: state.accountNumber,
+    accountType: state.accountType,
+    lastBalance: state.lastBalance,
+    transactions: state.transactions,
   };
 
   useEffect(() => {
@@ -50,9 +50,8 @@ const AccountStatement = ({ myAccount }) => {
       accountId === undefined ||
       accountNumber === undefined
     )
-      navigate("/bank");    
+      navigate("/bank");
   }, []);
- 
 
   const getBankStyle = (bankName) => {
     // return bankName;
@@ -76,7 +75,8 @@ const AccountStatement = ({ myAccount }) => {
                         {bankName}
 
                         <span className="totalBalance">
-                          [ Last Balance : ${((lastBalance*100)/100).toFixed(2)} ]
+                          [ Last Balance : $
+                          {((lastBalance * 100) / 100).toFixed(2)} ]
                         </span>
                       </div>
                     ) : (
@@ -88,7 +88,7 @@ const AccountStatement = ({ myAccount }) => {
               </div>
             </div>
             <div className="card-body">
-              <Account myAccount={myAccount} />
+              <Account key={1} myAccount={myAccount} lastBalance={false} />
             </div>
           </div>
           <p></p>

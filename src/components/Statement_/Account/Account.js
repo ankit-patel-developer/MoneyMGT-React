@@ -24,11 +24,12 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-const Account = ({ myAccount }) => {
+const Account = ({ myAccount, lastBalance }) => {
   const [open, setOpen] = useState(false);
   const [display, setDisplay] = useState(true);
 
   useEffect(() => {
+    console.log(lastBalance);
     console.log("child component : ", myAccount);
 
     if (myAccount.transactions.length >= 1) setDisplay(true);
@@ -48,7 +49,7 @@ const Account = ({ myAccount }) => {
         {row.transactionType === 0 && (
           <div className="plusTran">
             {getAmountSign(row.transactionType)}&nbsp;
-            {cell}
+            {((cell * 100) / 100).toFixed(2)}
           </div>
         )}
 
@@ -77,18 +78,20 @@ const Account = ({ myAccount }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
+
         <TableCell component="th" scope="row">
           <span className="accountStyle">
-            {myAccount.accountNumber}
-            <br />
             <span>{getAccountType(myAccount.accountType)}</span>
+            <br />[{myAccount.accountNumber}]
           </span>
         </TableCell>
-        <TableCell align="right">
-          <span className="accountStyle">
-            {((myAccount.lastBalance * 100) / 100).toFixed(2)}
-          </span>
-        </TableCell>
+        {lastBalance && (
+          <TableCell align="right">
+            <span className="accountStyle">
+              ${((myAccount.lastBalance * 100) / 100).toFixed(2)}
+            </span>
+          </TableCell>
+        )}
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

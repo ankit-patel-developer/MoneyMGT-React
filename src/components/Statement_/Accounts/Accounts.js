@@ -54,7 +54,11 @@ const Accounts = ({ myAccounts }) => {
             </TableHead>
             <TableBody>
               {myAccounts.map((myAccount) => (
-                <Account key={parseInt(myAccount.accountId)} myAccount={myAccount} />
+                <Account
+                  key={parseInt(myAccount.accountId)}
+                  myAccount={myAccount}
+                  lastBalance={true}
+                />
               ))}
             </TableBody>
           </Table>
