@@ -66,7 +66,7 @@ const Account = ({ myAccount, lastBalance }) => {
   return (
     <React.Fragment>
       <TableRow
-        key={myAccount.AccountId}
+        key={parseInt(myAccount.AccountId)}
         sx={{ "& > *": { borderBottom: "unset" } }}
       >
         <TableCell>
@@ -126,7 +126,7 @@ const Account = ({ myAccount, lastBalance }) => {
                 </TableHead>
                 <TableBody>
                   {myAccount.transactions.map((tr) => (
-                    <TableRow key={tr.transactionId}>
+                    <TableRow>
                       <TableCell component="th" scope="row">
                         {displayDate(tr.transactionDate)}
                       </TableCell>

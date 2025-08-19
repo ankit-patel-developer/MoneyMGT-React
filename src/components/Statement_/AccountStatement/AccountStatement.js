@@ -4,6 +4,14 @@ import "./style.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+
 import {
   getBankStyle,
   getBankStyleLocal,
@@ -88,7 +96,18 @@ const AccountStatement = ({ myAccount }) => {
               </div>
             </div>
             <div className="card-body">
-              <Account key={1} myAccount={myAccount} lastBalance={false} />
+              <TableContainer component={Paper}>
+                <Table aria-label="collapsible table">
+                  <TableHead></TableHead>
+                  <TableBody>
+                    <Account
+                      key={parseInt(myAccount.accountId)}
+                      myAccount={myAccount}
+                      lastBalance={false}
+                    />
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
           </div>
           <p></p>
