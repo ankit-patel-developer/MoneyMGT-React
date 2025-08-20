@@ -10,6 +10,8 @@ import {
   getAmountSign,
 } from "../../../services/local.service";
 
+import Search from "../Search/Search";
+
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -101,10 +103,14 @@ const Account = ({ myAccount, lastBalance }) => {
                 {!display ? (
                   <span className="trHeaderNoData">No Transactions !</span>
                 ) : (
-                  <span className="trHeader">Transactions</span>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <Search />
+                    </div>
+                  </div>
                 )}
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small">
                 <TableHead>
                   <TableRow>
                     <TableCell>

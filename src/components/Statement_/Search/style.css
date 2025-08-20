@@ -1,0 +1,19 @@
+.searchBox {
+    font-size:medium;
+    padding: 3px;
+    background-color: beige;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 20px;
+}
+
+.searchLabel {
+    padding-top: 5px;  
+    float: right;
+}
+
+.searchBtn { 
+    padding-top: 10px;
+    max-width: fit-content;
+    margin-inline: auto;
+}

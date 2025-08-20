@@ -13,8 +13,6 @@ import {
   getAccountColor,
 } from "../../../services/local.service";
 
-import Transactions from "../Transactions/Transactions";
-
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
