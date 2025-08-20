@@ -27,6 +27,24 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 const Account = ({ myAccount, lastBalance }) => {
+  // get object from child component [Search]
+  const [searchObject, setSearchObject] = useState(null);
+  const handleObjectFromChild = (searchObject) => {
+    setSearchObject(searchObject);
+    console.log("Object received in Parent:", searchObject);
+
+    if (
+      searchObject.startDate === "" ||
+      searchObject.startDate === undefined ||
+      searchObject.endDate === "" ||
+      searchObject.endDate === undefined
+    ) {
+      console.log("get all transactions !");
+    } else {
+      console.log("gettting search transactions !");
+    }
+  };
+
   const [open, setOpen] = useState(false);
   const [display, setDisplay] = useState(true);
 
@@ -105,7 +123,7 @@ const Account = ({ myAccount, lastBalance }) => {
                 ) : (
                   <div className="row">
                     <div className="col-md-6">
-                      <Search />
+                      <Search onSendObject={handleObjectFromChild} />
                     </div>
                   </div>
                 )}

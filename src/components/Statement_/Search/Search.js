@@ -15,7 +15,7 @@ import { useNavigate, useLocation } from "react-router";
 
 import Moment from "moment";
 
-const Search = () => {
+const Search = ({ onSendObject }) => {
   // form
   const [form, setForm] = useState({});
 
@@ -30,6 +30,10 @@ const Search = () => {
     });
   };
 
+  const sendObjectToParent = (searchObject) => {
+     onSendObject(searchObject); // Call the parent's function with the object    
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -38,11 +42,11 @@ const Search = () => {
 
     if (form.startDate === "" || form.startDate === undefined) {
       console.log("start-date is required!");
-      return;
+      // return;
     }
     if (form.endDate === "" || form.endDate === undefined) {
       console.log("end-date is required!");
-      return;
+      // return;
     }
 
     if (date1 < date2) {
@@ -58,7 +62,9 @@ const Search = () => {
       endDate: form.endDate,
     };
 
-    console.log(searchObject);
+      console.log(searchObject);
+      
+      sendObjectToParent(searchObject);
   };
 
   return (
