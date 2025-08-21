@@ -164,7 +164,7 @@ const Account = ({ myAccount, lastBalance, statementType }) => {
                   <span className="trHeaderNoData">No Transactions !</span>
                 ) : (
                   <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-12">
                       <Search onSendObject={handleObjectFromChild} />
                     </div>
                   </div>

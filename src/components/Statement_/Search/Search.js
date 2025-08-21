@@ -31,7 +31,7 @@ const Search = ({ onSendObject }) => {
   };
 
   const sendObjectToParent = (searchObject) => {
-     onSendObject(searchObject); // Call the parent's function with the object    
+    onSendObject(searchObject); // Call the parent's function with the object
   };
 
   const handleSubmit = (e) => {
@@ -62,9 +62,9 @@ const Search = ({ onSendObject }) => {
       endDate: form.endDate,
     };
 
-      console.log(searchObject);
-      
-      sendObjectToParent(searchObject);
+    console.log(searchObject);
+
+    sendObjectToParent(searchObject);
   };
 
   return (
@@ -72,10 +72,10 @@ const Search = ({ onSendObject }) => {
       <Form ref={formRef}>
         <div className="searchBox">
           <div className="row ">
-            <div className="col-md-4">
+            <div className="col-md-2">
               <Form.Label className="searchLabel">Start Date</Form.Label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-3">
               <Form.Control
                 className="w-30"
                 type="date"
@@ -84,18 +84,44 @@ const Search = ({ onSendObject }) => {
                 onChange={(e) => setField("startDate", e.target.value)}
               />
             </div>
+            <div className="col-md-1"></div>
+            <div className="col-md-3">
+              <Form.Label className="searchLabel">Minimum Amount</Form.Label>
+            </div>
+            <div className="col-md-2">
+              <Form.Control
+                type="number"
+                className="w-30"
+                name="minAmount"
+                placeholder="00.00"
+                onChange={(e) => setField("minAmount", e.target.value)}
+              />
+            </div>
           </div>
           <div className="row ">
-            <div className="col-md-4">
+            <div className="col-md-2">
               <Form.Label className="searchLabel">End Date</Form.Label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-3">
               <Form.Control
                 className="w-30"
                 type="date"
                 name="endDate"
                 placeholder="End Date"
                 onChange={(e) => setField("endDate", e.target.value)}
+              />
+            </div>
+            <div className="col-md-1"></div>
+            <div className="col-md-3">
+              <Form.Label className="searchLabel">Maximum Amount</Form.Label>
+            </div>
+            <div className="col-md-2">
+              <Form.Control
+                type="number"
+                className="w-30"
+                name="maxAmount"
+                placeholder="00.00"
+                onChange={(e) => setField("maxAmount", e.target.value)}
               />
             </div>
           </div>

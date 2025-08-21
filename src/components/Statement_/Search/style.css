@@ -1,6 +1,6 @@
 .searchBox {
     font-size:medium;
-    padding: 3px;
+    padding: 5px;
     background-color: beige;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -8,7 +8,7 @@
 }
 
 .searchLabel {
-    padding-top: 5px;  
+    padding-top: 10px;  
     float: right;
 }
 
