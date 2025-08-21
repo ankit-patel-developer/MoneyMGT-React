@@ -27,22 +27,53 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 const Account = ({ myAccount, lastBalance }) => {
+  // this is main object that holds all transactions @ beginning
+  // and altered when searchObject is changed by
+  // Search child-component
+  const [filteredData, setFilteredData] = useState([]);
+
   // get object from child component [Search]
   const [searchObject, setSearchObject] = useState(null);
+
+  // runs when searchObject is changed by Search child-component
+  useEffect(() => {
+    const filterData = () => {
+      let tempFilteredData = myAccount.transactions;
+
+      if (
+        searchObject !== null &&
+        searchObject.startDate &&
+        searchObject.endDate
+      ) {
+        const start = new Date(searchObject.startDate);
+        const end = new Date(searchObject.endDate);
+
+        tempFilteredData = myAccount.transactions.filter((item) => {
+          const itemDate = new Date(item.transactionDate);
+          return itemDate >= start && itemDate <= end;
+        });
+      } else if (searchObject !== null && searchObject.startDate) {
+        const start = new Date(searchObject.startDate);
+        tempFilteredData = myAccount.transactions.filter((item) => {
+          const itemDate = new Date(item.transactionDate);
+          return itemDate >= start;
+        });
+      } else if (searchObject !== null && searchObject.endDate) {
+        const end = new Date(searchObject.endDate);
+        tempFilteredData = myAccount.transactions.filter((item) => {
+          const itemDate = new Date(item.transactionDate);
+          return itemDate <= end;
+        });
+      }
+      setFilteredData(tempFilteredData);
+    };
+    filterData();
+  }, [searchObject]);
+
+  // event handler connects with Search child-component
   const handleObjectFromChild = (searchObject) => {
     setSearchObject(searchObject);
     console.log("Object received in Parent:", searchObject);
-
-    if (
-      searchObject.startDate === "" ||
-      searchObject.startDate === undefined ||
-      searchObject.endDate === "" ||
-      searchObject.endDate === undefined
-    ) {
-      console.log("get all transactions !");
-    } else {
-      console.log("gettting search transactions !");
-    }
   };
 
   const [open, setOpen] = useState(false);
@@ -52,8 +83,10 @@ const Account = ({ myAccount, lastBalance }) => {
     console.log(lastBalance);
     console.log("child component : ", myAccount);
 
-    if (myAccount.transactions.length >= 1) setDisplay(true);
-    else setDisplay(false);
+    if (myAccount.transactions.length >= 1) {
+      setDisplay(true);
+      setFilteredData(myAccount.transactions);
+    } else setDisplay(false);
   }, [myAccount]);
 
   const displayDate = (cell) => {
@@ -149,7 +182,7 @@ const Account = ({ myAccount, lastBalance }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {myAccount.transactions.map((tr) => (
+                  {filteredData.map((tr) => (
                     <TableRow>
                       <TableCell component="th" scope="row">
                         {displayDate(tr.transactionDate)}
