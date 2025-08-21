@@ -26,7 +26,7 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-const Account = ({ myAccount, lastBalance }) => {
+const Account = ({ myAccount, lastBalance, statementType }) => {
   // this is main object that holds all transactions @ beginning
   // and altered when searchObject is changed by
   // Search child-component
@@ -130,14 +130,23 @@ const Account = ({ myAccount, lastBalance }) => {
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
+          {statementType == "Account" && (
+            <span className="accountStyle">
+              <span>{getAccountType(myAccount.accountType)}</span>
+              &nbsp;&nbsp;[{myAccount.accountNumber}]
+            </span>
+          )}
         </TableCell>
 
-        <TableCell component="th" scope="row">
-          <span className="accountStyle">
-            <span>{getAccountType(myAccount.accountType)}</span>
-            <br />[{myAccount.accountNumber}]
-          </span>
-        </TableCell>
+        {statementType == "Bank" && (
+          <TableCell component="th" scope="row">
+            <span className="accountStyle">
+              <span>{getAccountType(myAccount.accountType)}</span>
+              <br />[{myAccount.accountNumber}]
+            </span>
+          </TableCell>
+        )}
+
         {lastBalance && (
           <TableCell align="right">
             <span className="accountStyle">

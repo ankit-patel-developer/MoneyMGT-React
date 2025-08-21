@@ -104,6 +104,7 @@ const AccountStatement = ({ myAccount }) => {
                       key={parseInt(myAccount.accountId)}
                       myAccount={myAccount}
                       lastBalance={false}
+                      statementType="Account"
                     />
                   </TableBody>
                 </Table>

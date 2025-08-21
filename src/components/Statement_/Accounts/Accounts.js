@@ -56,6 +56,7 @@ const Accounts = ({ myAccounts }) => {
                   key={parseInt(myAccount.accountId)}
                   myAccount={myAccount}
                   lastBalance={true}
+                  statementType="Bank"
                 />
               ))}
             </TableBody>
