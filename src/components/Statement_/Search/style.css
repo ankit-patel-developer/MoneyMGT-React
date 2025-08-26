@@ -17,3 +17,10 @@
     max-width: fit-content;
     margin-inline: auto;
 }
+
+.searchIcon {
+    -webkit-text-stroke: 2px;
+    font-size: x-large;
+    color: blue;    
+}
+

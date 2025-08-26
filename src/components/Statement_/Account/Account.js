@@ -40,6 +40,7 @@ const Account = ({ myAccount, lastBalance, statementType }) => {
     const filterData = () => {
       let tempFilteredData = myAccount.transactions;
 
+      // date search
       if (
         searchObject !== null &&
         searchObject.startDate &&
@@ -65,7 +66,39 @@ const Account = ({ myAccount, lastBalance, statementType }) => {
           return itemDate <= end;
         });
       }
-      setFilteredData(tempFilteredData);
+
+      // amount search
+      let tempFilteredDataAmount = tempFilteredData;
+      if (
+        searchObject !== null &&
+        searchObject.minAmount &&
+        searchObject.maxAmount
+      ) {
+        tempFilteredDataAmount = tempFilteredData.filter((item) => {
+          return (
+            item.amountPaid >= parseInt(searchObject.minAmount, 10) &&
+            item.amountPaid <= parseInt(searchObject.maxAmount, 10)
+          );
+        });
+      } else if (searchObject !== null && searchObject.minAmount) {
+        tempFilteredDataAmount = tempFilteredData.filter((item) => {
+          return item.amountPaid >= parseInt(searchObject.minAmount, 10);
+        });
+      } else if (searchObject !== null && searchObject.maxAmount) {
+        tempFilteredDataAmount = tempFilteredData.filter((item) => {
+          return item.amountPaid <= parseInt(searchObject.maxAmount, 10);
+        });
+      }
+
+      // [sourceName / payeeName] entity search
+      let tempFilteredDataEntity = tempFilteredDataAmount;
+      if (searchObject !== null && searchObject.entity) {
+        tempFilteredDataEntity = tempFilteredDataAmount.filter((item) => {
+          return item.sourceName.toLowerCase().includes(searchObject.entity.toLowerCase()) || item.payeeName.toLowerCase().includes(searchObject.entity.toLowerCase());
+        });
+      }
+
+      setFilteredData(tempFilteredDataEntity);
     };
     filterData();
   }, [searchObject]);

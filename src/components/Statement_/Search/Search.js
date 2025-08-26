@@ -37,8 +37,8 @@ const Search = ({ onSendObject }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let date1 = new Date(form.startDate).getTime();
-    let date2 = new Date(form.endDate).getTime();
+    let dateStart = new Date(form.startDate).getTime();
+    let dateEnd = new Date(form.endDate).getTime();
 
     if (form.startDate === "" || form.startDate === undefined) {
       console.log("start-date is required!");
@@ -49,9 +49,9 @@ const Search = ({ onSendObject }) => {
       // return;
     }
 
-    if (date1 < date2) {
+    if (dateStart < dateEnd) {
       console.log(`${form.startDate} is less than ${form.endDate}`);
-    } else if (date1 > date2) {
+    } else if (dateStart > dateEnd) {
       console.log(`${form.startDate} is greater than ${form.endDate}`);
     } else {
       console.log(`Both dates are equal`);
@@ -60,6 +60,9 @@ const Search = ({ onSendObject }) => {
     var searchObject = {
       startDate: form.startDate,
       endDate: form.endDate,
+      minAmount: form.minAmount,
+      maxAmount: form.maxAmount,
+      entity: form.entity,
     };
 
     console.log(searchObject);
@@ -84,9 +87,8 @@ const Search = ({ onSendObject }) => {
                 onChange={(e) => setField("startDate", e.target.value)}
               />
             </div>
-            <div className="col-md-1"></div>
-            <div className="col-md-3">
-              <Form.Label className="searchLabel">Minimum Amount</Form.Label>
+            <div className="col-md-1">
+              <Form.Label className="searchLabel">MIN</Form.Label>
             </div>
             <div className="col-md-2">
               <Form.Control
@@ -95,6 +97,18 @@ const Search = ({ onSendObject }) => {
                 name="minAmount"
                 placeholder="00.00"
                 onChange={(e) => setField("minAmount", e.target.value)}
+              />
+            </div>
+            <div className="col-md-1">
+              <Form.Label className="searchLabel">MAX</Form.Label>
+            </div>
+            <div className="col-md-2">
+              <Form.Control
+                type="number"
+                className="w-30"
+                name="maxAmount"
+                placeholder="00.00"
+                onChange={(e) => setField("maxAmount", e.target.value)}
               />
             </div>
           </div>
@@ -111,27 +125,25 @@ const Search = ({ onSendObject }) => {
                 onChange={(e) => setField("endDate", e.target.value)}
               />
             </div>
-            <div className="col-md-1"></div>
-            <div className="col-md-3">
-              <Form.Label className="searchLabel">Maximum Amount</Form.Label>
+            <div className="col-md-1">
+              <Form.Label className="searchLabel">TEXT</Form.Label>
             </div>
-            <div className="col-md-2">
+            <div className="col-md-5">
               <Form.Control
-                type="number"
                 className="w-30"
-                name="maxAmount"
-                placeholder="00.00"
-                onChange={(e) => setField("maxAmount", e.target.value)}
+                name="entity"
+                placeholder="Search Text / Entity"
+                onChange={(e) => setField("entity", e.target.value)}
               />
             </div>
           </div>
           <div className="searchBtn">
             <Button
-              className="btn btn-success"
+              className="btn btn-light"
               type="button"
               onClick={(e) => handleSubmit(e)}
             >
-              Search
+              <i class="bi bi-search searchIcon"></i>
             </Button>
           </div>
         </div>
