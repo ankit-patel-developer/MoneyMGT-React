@@ -143,7 +143,7 @@ const Search = ({ onSendObject }) => {
               type="button"
               onClick={(e) => handleSubmit(e)}
             >
-              <i class="bi bi-search searchIcon"></i>
+              <i className="bi bi-search searchIcon"></i>
             </Button>
           </div>
         </div>

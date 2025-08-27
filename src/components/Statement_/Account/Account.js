@@ -94,7 +94,14 @@ const Account = ({ myAccount, lastBalance, statementType }) => {
       let tempFilteredDataEntity = tempFilteredDataAmount;
       if (searchObject !== null && searchObject.entity) {
         tempFilteredDataEntity = tempFilteredDataAmount.filter((item) => {
-          return item.sourceName.toLowerCase().includes(searchObject.entity.toLowerCase()) || item.payeeName.toLowerCase().includes(searchObject.entity.toLowerCase());
+          return (
+            item.sourceName
+              .toLowerCase()
+              .includes(searchObject.entity.toLowerCase()) ||
+            item.payeeName
+              .toLowerCase()
+              .includes(searchObject.entity.toLowerCase())
+          );
         });
       }
 
@@ -125,7 +132,9 @@ const Account = ({ myAccount, lastBalance, statementType }) => {
   const displayDate = (cell) => {
     if (cell === null || cell === "") return "N/A";
     else {
-      return Moment(cell).format("DD-MMM-YYYY");
+      // return Moment(cell).format("mm:ss:SSS");
+      // YYYY-MM-DD
+      return Moment(cell).format("YYYY-MM-DD");
     }
   };
 
