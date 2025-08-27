@@ -23,3 +23,13 @@
     font-weight: bold;
     font-size: large;
 }
+
+.paginationDiv {
+    background-color: beige;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: large;
+}

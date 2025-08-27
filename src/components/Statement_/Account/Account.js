@@ -15,6 +15,7 @@ import Search from "../Search/Search";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
+import TablePagination from "@mui/material/TablePagination";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -118,6 +119,22 @@ const Account = ({ myAccount, lastBalance, statementType }) => {
 
   const [open, setOpen] = useState(false);
   const [display, setDisplay] = useState(true);
+
+  // pagination
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to the first page when rows per page changes
+  };
+  // Calculate the data to display for the current page
+  const displayedRows = filteredData.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
 
   useEffect(() => {
     console.log(lastBalance);
@@ -233,7 +250,7 @@ const Account = ({ myAccount, lastBalance, statementType }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {filteredData.map((tr) => (
+                  {displayedRows.map((tr) => (
                     <TableRow>
                       <TableCell component="th" scope="row">
                         {displayDate(tr.transactionDate)}
@@ -252,6 +269,16 @@ const Account = ({ myAccount, lastBalance, statementType }) => {
                   ))}
                 </TableBody>
               </Table>
+              <TablePagination
+                className="paginationDiv"
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={filteredData.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
             </Box>
           </Collapse>
         </TableCell>
