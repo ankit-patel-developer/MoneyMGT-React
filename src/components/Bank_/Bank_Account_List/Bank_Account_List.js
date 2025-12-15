@@ -237,7 +237,7 @@ const Bank_Account_List = () => {
     // fail
     // -> display error message @ modal window
 
-    // setShow(true);
+    setShow(true);
   };
   // wip
   const createNewAccount = (e, bankId) => {
