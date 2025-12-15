@@ -23,6 +23,9 @@ import Moment from "moment";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
+// react bootstrap modal
+import Modal from "react-bootstrap/Modal";
+
 const Bank_Account_List = () => {
   let navigate = useNavigate();
 
@@ -35,6 +38,9 @@ const Bank_Account_List = () => {
 
   // state var passing to bank-statement component
   // { bankId, bankName, [] bankAccounts-> {,,, [] transactions} }
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   const checkForNumbersOnly = (newVal) => {
     const re = /^\d*\.?\d*$/;
@@ -108,29 +114,38 @@ const Bank_Account_List = () => {
         {" "}
         <div className="marginBtwnBtns">
           <Button
-            className="btn btn-danger"
+            className="btn btn-danger bi bi-box-arrow-right"
             type="button"
             onClick={(e) => doWithdraw(e, row)}
           >
-            Withdraw
+            &nbsp;<b>Withdraw</b>
           </Button>
         </div>
         <div className="marginBtwnBtns">
           <Button
-            className="btn btn-success"
+            className="btn btn-success bi bi-piggy-bank"
             type="button"
             onClick={(e) => doDeposit(e, row)}
           >
-            Deposit
+            &nbsp;<b>Deposit</b>
           </Button>
         </div>
         <div className="marginBtwnBtns">
           <Button
-            className="btn btn-info"
+            className="btn btn-info bi bi-list-columns"
             type="button"
             onClick={(e) => getAccountStatement(e, row)}
           >
-            Statement
+            &nbsp;<b>Account Statement</b>
+          </Button>
+        </div>
+        <div className="marginBtwnBtns">
+          <Button
+            className="bi bi-clock-history"
+            type="button"
+            onClick={(e) => openVirtualTransactionsWindow(e, row)}
+          >
+            &nbsp;<b>Virtual Transactions</b>
           </Button>
         </div>{" "}
       </div>
@@ -211,6 +226,20 @@ const Bank_Account_List = () => {
   };
 
   // wip
+  const openVirtualTransactionsWindow = (e, bankId, accountId) => {
+    console.log(bankId, accountId);
+
+    // run VT
+    // react-api-sql server sp
+    // success
+    // -> display success message @ modal window
+
+    // fail
+    // -> display error message @ modal window
+
+    // setShow(true);
+  };
+  // wip
   const createNewAccount = (e, bankId) => {
     console.log(bankId);
   };
@@ -232,7 +261,7 @@ const Bank_Account_List = () => {
     };
     // console.log(accountVM);
 
-    // api call    
+    // api call
     StatementService.getAccountStatement(accountVM)
       .then((response) => {
         if (response.data.responseCode === -1) {
@@ -244,7 +273,7 @@ const Bank_Account_List = () => {
 
           // state var passing to account-statement component
           // { bankId, bankName, accountId, accountNumber, accountType, lastBalance, [] transactions }
-          
+
           navigate("/account-statement", {
             state: {
               bankId: parseInt(id),
@@ -310,6 +339,21 @@ const Bank_Account_List = () => {
 
   return (
     <div className="container">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Virtual Transactions</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Run Virtual Transactions
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <div className="mainHeader">Bank-Accounts</div>
       <hr />
       <div className="row">

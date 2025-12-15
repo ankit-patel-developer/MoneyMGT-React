@@ -18,10 +18,8 @@ import CreditCard from "./components/CreditCard_/CreditCard/CreditCard";
 import CreditCard_Transaction from "./components/CreditCard_/CreditCard_Transaction/CreditCard_Transaction";
 import BankStatement from "./components/Statement_/BankStatement/BankStatement";
 import AccountStatement from "./components/Statement_/AccountStatement/AccountStatement";
-import VirstualTransactions from "./components/VT_/Virtual_Transactions";
 
 import NotFound from "./components/NotFound_/NotFound";
-import Virtual_Transactions from "./components/VT_/Virtual_Transactions";
 
 function App() {
   return (
@@ -62,9 +60,7 @@ function App() {
             <Route path="/bank-statement" element={<BankStatement />} />
 
             <Route path="/account-statement" element={<AccountStatement />} />
-
-            <Route path="/virtual-transactions" element={<Virtual_Transactions />} />
-
+       
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
