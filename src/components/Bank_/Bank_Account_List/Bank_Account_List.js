@@ -25,6 +25,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 
 // react bootstrap modal
 import Modal from "react-bootstrap/Modal";
+import VT from "../../VT_/VT/VT.js";
 
 const Bank_Account_List = () => {
   let navigate = useNavigate();
@@ -39,8 +40,10 @@ const Bank_Account_List = () => {
   // state var passing to bank-statement component
   // { bankId, bankName, [] bankAccounts-> {,,, [] transactions} }
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  // VT Object
+  const [accountNumberVT, setAccountNumberVT] = useState();
+  // controls display of VT child componenet as modal window
+  const [displayVTWindow, setDisplayVTWindow] = useState(false);
 
   const checkForNumbersOnly = (newVal) => {
     const re = /^\d*\.?\d*$/;
@@ -225,19 +228,18 @@ const Bank_Account_List = () => {
     });
   };
 
-  // wip
-  const openVirtualTransactionsWindow = (e, bankId, accountId) => {
-    console.log(bankId, accountId);
+  // VT
+  // display VT child-component
+  const openVirtualTransactionsWindow = (e, account) => {
+    setAccountNumberVT(account.accountNumber);
 
-    // run VT
-    // react-api-sql server sp
-    // success
-    // -> display success message @ modal window
-
-    // fail
-    // -> display error message @ modal window
-
-    setShow(true);
+    // display VT child component as modal window
+    setDisplayVTWindow(true);
+  };
+  // event handler connects with VT child-component
+  const handleObjectFromChild = (vtObject) => {
+    console.log("Object received in Parent:", vtObject);
+    setDisplayVTWindow(false);
   };
   // wip
   const createNewAccount = (e, bankId) => {
@@ -339,20 +341,15 @@ const Bank_Account_List = () => {
 
   return (
     <div className="container">
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Virtual Transactions</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Run Virtual Transactions
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {displayVTWindow && (
+        <div>
+          <VT
+            bankIdVT={id}
+            accountNumberVT={accountNumberVT}
+            onSendObject={handleObjectFromChild}
+          />
+        </div>
+      )}
 
       <div className="mainHeader">Bank-Accounts</div>
       <hr />
