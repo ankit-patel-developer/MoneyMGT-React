@@ -7,6 +7,8 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import vtService from "../../../services/vtService.js";
+
 const VT = ({ bankIdVT, accountNumberVT, onSendObject }) => {
   // form
   const [form, setForm] = useState({});
@@ -27,22 +29,26 @@ const VT = ({ bankIdVT, accountNumberVT, onSendObject }) => {
     e.preventDefault();
 
     console.log(form);
-    console.log(form.numberOfTransactions);
+    console.log("trans...", form.numberOfTransactions);
 
     var vtObject = {
-      bankId: bankIdVT,
+      bankId: Number(bankIdVT),
       accountNumber: accountNumberVT,
       transactionResponse: false,
     };
 
-    if (Number(form.numberOfTansactions) == Number("0")) {
+    if (form.numberOfTransactions === undefined) {
       // no need to call api
+      vtObject.bankId = null;
+      vtObject.accountNumber = null;
       vtObject.transactionResponse = false;
     } else {
       // call api
 
       // run VT
       // react-api-sql server sp
+      var fcuk = vtService.depositVT(vtObject);
+      console.log(fcuk);
 
       var apiResponse = true;
       if (apiResponse) {
@@ -60,9 +66,9 @@ const VT = ({ bankIdVT, accountNumberVT, onSendObject }) => {
   };
   const handleClose = () => {
     var vtObject = {
-      bankId: bankIdVT,
-      accountNumber: accountNumberVT,
-      transactionResponse: true,
+      bankId: null,
+      accountNumber: null,
+      transactionResponse: false,
     };
     onSendObject(vtObject); // Call the parent's function with the object
   };
