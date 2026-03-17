@@ -9,7 +9,9 @@ import Button from "react-bootstrap/Button";
 
 import vtService from "../../../services/vtService.js";
 
-const VT = ({ bankIdVT, accountNumberVT, onSendObject }) => {
+const VT = ({ bankIdVT, accountNumberVT, bankNameVT, onSendObject }) => {
+  const [vtObject, setVtObject] = useState({});
+
   // form
   const [form, setForm] = useState({});
   // reset form
@@ -28,46 +30,73 @@ const VT = ({ bankIdVT, accountNumberVT, onSendObject }) => {
   const handleVT = (e) => {
     e.preventDefault();
 
-    console.log(form);
-    console.log("trans...", form.numberOfTransactions);
+    setVtObject({});
 
-    var vtObject = {
+    var vtObject_ = {
       bankId: Number(bankIdVT),
       accountNumber: accountNumberVT,
       transactionResponse: false,
+      numberOfTransactions: 0,
     };
 
     if (form.numberOfTransactions === undefined) {
       // no need to call api
-      vtObject.bankId = null;
-      vtObject.accountNumber = null;
-      vtObject.transactionResponse = false;
+      vtObject_.bankId = null;
+      vtObject_.accountNumber = null;
+      vtObject_.transactionResponse = false;
+      vtObject_.numberOfTransactions = null;
+
+      setVtObject({
+        transactionResponse: false,
+        apiResponse: "BAD REQUEST !",
+      });
     } else {
       // call api
 
       // run VT
       // react-api-sql server sp
-      var fcuk = vtService.depositVT(vtObject);
-      console.log(fcuk);
+      // api call
+      vtObject_.numberOfTransactions = Number(form.numberOfTransactions);
+      vtService
+        .depositVT(vtObject_)
+        .then((response) => {
+          if (response.data.transactionResponse === true) {
+            vtObject_.transactionResponse = true;
 
-      var apiResponse = true;
-      if (apiResponse) {
-        // success
-        // -> display success message @ modal window
-        vtObject.transactionResponse = apiResponse;
-      } else {
-        // fail
-        // -> display error message @ modal window
-        vtObject.transactionResponse = apiResponse;
-      }
+            setVtObject({
+              transactionResponse: true,
+              apiResponse: "SUCCESS !",
+            });
+
+            // 2 seconds delay
+            setTimeout(() => {
+              onSendObject(vtObject_);
+              // Call the parent's function with the object
+            }, 2000);
+          } else {
+            setVtObject({
+              transactionResponse: false,
+              apiResponse: "SERVER ERROR !",
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response.request.status === 400) {
+            setVtObject({
+              transactionResponse: false,
+              apiResponse: "BAD REQUEST !",
+            });
+            vtObject_.transactionResponse = false;
+          }
+        });
     }
-
-    onSendObject(vtObject); // Call the parent's function with the object
   };
   const handleClose = () => {
+    setVtObject({});
     var vtObject = {
       bankId: null,
       accountNumber: null,
+      numberOfTransactions: null,
       transactionResponse: false,
     };
     onSendObject(vtObject); // Call the parent's function with the object
@@ -77,7 +106,25 @@ const VT = ({ bankIdVT, accountNumberVT, onSendObject }) => {
     <div>
       <Modal show={true} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Virtual Transactions</Modal.Title>
+          <Modal.Title>
+            <div className="vtModelWindow">
+              <u>Virtual Transactions</u>
+              <p></p>
+              <span>
+                {bankNameVT} ({accountNumberVT})
+              </span>
+            </div>
+            <p></p>
+            {vtObject !== null && !vtObject.transactionResponse ? (
+              <div className="errorApiResponse">
+                <span>{vtObject.apiResponse}</span>
+              </div>
+            ) : (
+              <div className="successApiResponse">
+                <span>{vtObject.apiResponse}</span>
+              </div>
+            )}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="card-body">

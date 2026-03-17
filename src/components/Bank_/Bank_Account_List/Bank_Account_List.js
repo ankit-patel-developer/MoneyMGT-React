@@ -345,6 +345,7 @@ const Bank_Account_List = () => {
         <div>
           <VT
             bankIdVT={id}
+            bankNameVT={bankName}
             accountNumberVT={accountNumberVT}
             onSendObject={handleObjectFromChild}
           />

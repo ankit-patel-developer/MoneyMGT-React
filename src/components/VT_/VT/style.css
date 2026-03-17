@@ -6,3 +6,18 @@
     padding-bottom: 10px;
     border-radius: 20px;
 }
+
+.errorApiResponse {
+    color : red;
+    font-size: medium;
+}
+
+.successApiResponse {
+    color: green;
+    font-size: medium;
+}
+
+.vtModelWindow{
+    color : blue;
+    font-size: x-large;
+}
