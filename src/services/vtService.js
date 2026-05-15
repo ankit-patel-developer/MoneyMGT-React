@@ -5,5 +5,8 @@ class VTService {
   depositVT = async (data) => {
     return await httpVT.post(`/depositVT`, data);
   };
+  withdrawVT = async (data) => {
+    return await httpVT.post(`/withdrawVT`, data);
+  };
 }
 export default new VTService();

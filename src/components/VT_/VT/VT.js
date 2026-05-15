@@ -14,21 +14,40 @@ const VT = ({ bankIdVT, accountNumberVT, bankNameVT, onSendObject }) => {
 
   // form
   const [form, setForm] = useState({});
+  const [errors, setErrors] = useState({});
   // reset form
   // form reference
   const formRef = useRef(null);
 
   const setField = (field, value) => {
-    console.log(value);
-    console.log(field);
     setForm({
       ...form,
       [field]: value,
     });
+
+    // Check and see if errors exist, and remove them from the error object:
+    if (!!errors[field])
+      setErrors({
+        ...errors,
+        [field]: null,
+      });
+  };
+  const findFormErrors = () => {
+    const { transactionType, numberOfTransactions } = form;
+    const newErrors = {};
+
+    if (!transactionType || transactionType === "")
+      newErrors.transactionType = "Error!";
+    if (!numberOfTransactions || numberOfTransactions === "")
+      newErrors.numberOfTransactions = "Error!";
+
+    return newErrors;
   };
 
-  const handleVT = (e) => {
+  const handleVTDeposit = (e) => {
     e.preventDefault();
+
+    const newErrors = findFormErrors();
 
     setVtObject({});
 
@@ -36,15 +55,19 @@ const VT = ({ bankIdVT, accountNumberVT, bankNameVT, onSendObject }) => {
       bankId: Number(bankIdVT),
       accountNumber: accountNumberVT,
       transactionResponse: false,
-      numberOfTransactions: 0,
+      numberOfTransactions: "",
+      transactionType: "",
     };
 
-    if (form.numberOfTransactions === undefined) {
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+
       // no need to call api
       vtObject_.bankId = null;
       vtObject_.accountNumber = null;
       vtObject_.transactionResponse = false;
-      vtObject_.numberOfTransactions = null;
+      vtObject_.numberOfTransactions = "";
+      vtObject_.transactionType = "";
 
       setVtObject({
         transactionResponse: false,
@@ -57,46 +80,57 @@ const VT = ({ bankIdVT, accountNumberVT, bankNameVT, onSendObject }) => {
       // react-api-sql server sp
       // api call
       vtObject_.numberOfTransactions = Number(form.numberOfTransactions);
-      vtService
-        .depositVT(vtObject_)
-        .then((response) => {
-          if (response.data.transactionResponse === true) {
-            vtObject_.transactionResponse = true;
+      vtObject_.transactionType = Number(form.transactionType);
 
-            setVtObject({
-              transactionResponse: true,
-              apiResponse: "SUCCESS !",
-            });
+      if (vtObject_.transactionType <= 1) {
+        // deposit
+        vtService
+          .depositVT(vtObject_)
+          .then((response) => {
+            if (response.data.transactionResponse === true) {
+              vtObject_.transactionResponse = true;
 
-            // 2 seconds delay
-            setTimeout(() => {
-              onSendObject(vtObject_);
-              // Call the parent's function with the object
-            }, 2000);
-          } else {
-            setVtObject({
-              transactionResponse: false,
-              apiResponse: "SERVER ERROR !",
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response.request.status === 400) {
-            setVtObject({
-              transactionResponse: false,
-              apiResponse: "BAD REQUEST !",
-            });
-            vtObject_.transactionResponse = false;
-          }
-        });
+              setVtObject({
+                transactionResponse: true,
+                apiResponse: "SUCCESS !",
+              });
+
+              // 2 seconds delay
+              setTimeout(() => {
+                onSendObject(vtObject_);
+                // Call the parent's function with the object
+              }, 2000);
+            } else {
+              setVtObject({
+                transactionResponse: false,
+                apiResponse: "SERVER ERROR !",
+              });
+            }
+          })
+          .catch((error) => {
+            if (error.response.request.status === 400) {
+              setVtObject({
+                transactionResponse: false,
+                apiResponse: "BAD REQUEST !",
+              });
+              vtObject_.transactionResponse = false;
+            }
+          });
+      } else {
+        // withdraw
+        console.log("withdraw,,,");
+      }
     }
   };
   const handleClose = () => {
+    setErrors({});
+    setForm({});
     setVtObject({});
     var vtObject = {
       bankId: null,
       accountNumber: null,
-      numberOfTransactions: null,
+      numberOfTransactions: "",
+      transactionType: "",
       transactionResponse: false,
     };
     onSendObject(vtObject); // Call the parent's function with the object
@@ -131,18 +165,29 @@ const VT = ({ bankIdVT, accountNumberVT, bankNameVT, onSendObject }) => {
             <Form ref={formRef}>
               <div className="row">
                 <div className="col-md-6 mx-auto">
+                  <Form.Group controlId="transactionType">
+                    <Form.Label>Transaction Type</Form.Label>
+                    <Form.Control
+                      as="select"
+                      onChange={(e) => {
+                        setField("transactionType", e.target.value);
+                      }}
+                    >
+                      <option value="">---Transaction Type---</option>
+                      <option value="1">Deposit</option>
+                      <option value="2">Withdraw</option>
+                    </Form.Control>
+                  </Form.Group>
+                  <p></p>
                   <Form.Group controlId="numberOfTransactions">
                     <Form.Label>Transactions</Form.Label>
                     <Form.Control
                       as="select"
                       onChange={(e) => {
-                        setField(
-                          "numberOfTransactions",
-                          Number(e.target.value)
-                        );
+                        setField("numberOfTransactions", e.target.value);
                       }}
                     >
-                      <option value="0">---Transactions---</option>
+                      <option value="">---Transactions---</option>
                       <option value="10">10</option>
                       <option value="20">20</option>
                       <option value="50">50</option>
@@ -156,7 +201,7 @@ const VT = ({ bankIdVT, accountNumberVT, bankNameVT, onSendObject }) => {
                 <Button
                   className="btn btn-success"
                   type="button"
-                  onClick={(e) => handleVT(e)}
+                  onClick={(e) => handleVTDeposit(e)}
                 >
                   Run VT
                 </Button>
