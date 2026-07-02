@@ -118,7 +118,38 @@ const VT = ({ bankIdVT, accountNumberVT, bankNameVT, onSendObject }) => {
           });
       } else {
         // withdraw
-        console.log("withdraw,,,");
+        vtService
+          .withdrawVT(vtObject_)
+          .then((response) => {
+            if (response.data.transactionResponse === true) {
+              vtObject_.transactionResponse = true;
+
+              setVtObject({
+                transactionResponse: true,
+                apiResponse: "SUCCESS !",
+              });
+
+              // 2 seconds delay
+              setTimeout(() => {
+                onSendObject(vtObject_);
+                // Call the parent's function with the object
+              }, 2000);
+            } else {
+              setVtObject({
+                transactionResponse: false,
+                apiResponse: "SERVER ERROR !",
+              });
+            }
+          })
+          .catch((error) => {
+            if (error.response.request.status === 400) {
+              setVtObject({
+                transactionResponse: false,
+                apiResponse: "BAD REQUEST !",
+              });
+              vtObject_.transactionResponse = false;
+            }
+          });
       }
     }
   };
