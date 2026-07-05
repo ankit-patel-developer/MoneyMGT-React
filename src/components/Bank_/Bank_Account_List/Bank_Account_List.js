@@ -151,6 +151,15 @@ const Bank_Account_List = () => {
             &nbsp;<b>Virtual Transactions</b>
           </Button>
         </div>{" "}
+        <div className="marginBtwnBtns">
+          <Button
+            className="bi bi-bar-chart-line-fill accountMonitor"
+            type="button"
+            onClick={(e) => monitorAccountMonthly(e, row)}
+          >
+            &nbsp;<b>Account Monitor</b>
+          </Button>
+        </div>{" "}
       </div>
     );
   };
@@ -192,6 +201,27 @@ const Bank_Account_List = () => {
 
   const goBack = (e) => {
     navigate("/bank");
+  };
+
+  // monitor account monthly
+  const monitorAccountMonthly = (e, account) => {
+    console.log("monitor account monthly,,,", account);
+
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth() + 1;
+
+    var monthlyAccountMonitorData = {
+      bankName: bankName,
+      accountId: account.accountId,
+      accountNumber: account.accountNumber,
+      balance: account.balance,
+      accountType: getAccountType(account.accountType),
+      year: currentYear,
+      month: currentMonth,
+    };
+
+    console.log(monthlyAccountMonitorData);
   };
 
   // deposit
@@ -251,7 +281,7 @@ const Bank_Account_List = () => {
     console.log(bankId, accountId);
   };
 
-  // wip
+  // ok
   // get bank's account wise statement
   // all transactions by default
   const getAccountStatement = (e, row) => {
